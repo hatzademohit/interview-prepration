@@ -1,0 +1,72 @@
+{
+  "category": "react",
+  "label": "React.js",
+  "icon": "Atom",
+  "questions": [
+    {
+      "id": "react-001",
+      "title": "What is the Virtual DOM and how does React use it?",
+      "difficulty": "beginner",
+      "tags": ["virtual-dom", "rendering", "performance"],
+      "shortAnswer": "The Virtual DOM is an in-memory tree of element descriptions. React diffs it against the previous tree (reconciliation) and applies the minimal set of changes to the real DOM.",
+      "detailedExplanation": "Rendering produces a tree of plain objects. The reconciler walks old vs new, deciding what to mount, update, or unmount. Keys are critical for list diffing.",
+      "realWorldExample": "Re-rendering a 10k-item list with stable keys updates only the changed rows; without keys, React re-renders many more.",
+      "bestPractices": ["Use stable keys in lists", "Lift state only when necessary", "Memoize expensive subtrees"],
+      "commonMistakes": ["Index as key in dynamic lists", "Mutating state directly"],
+      "codeSnippet": { "language": "jsx", "code": "{items.map(i => <Row key={i.id} item={i} />)}" },
+      "interviewTip": "Mention 'reconciliation' explicitly — it's the technical term interviewers listen for."
+    },
+    {
+      "id": "react-002",
+      "title": "useEffect — when does it run and how do dependencies work?",
+      "difficulty": "intermediate",
+      "tags": ["hooks", "useEffect"],
+      "shortAnswer": "useEffect runs after commit. With [] it runs once; with [deps] it re-runs when any dep changes by Object.is comparison.",
+      "detailedExplanation": "Effects describe synchronization with the outside world. The cleanup runs before the next effect and on unmount. Missing deps cause stale closures.",
+      "realWorldExample": "Subscribing to a WebSocket: open in effect, close in cleanup. Re-subscribe when the URL dep changes.",
+      "bestPractices": ["Include all referenced values in deps", "Use the exhaustive-deps lint rule", "Move pure derivations out of effects"],
+      "commonMistakes": ["Putting derived data in effects instead of useMemo", "Forgetting cleanup"],
+      "codeSnippet": { "language": "jsx", "code": "useEffect(() => {\n  const ws = new WebSocket(url);\n  return () => ws.close();\n}, [url]);" },
+      "interviewTip": "Cite 'You Might Not Need an Effect' — shows you read the docs."
+    },
+    {
+      "id": "react-003",
+      "title": "useMemo vs useCallback.",
+      "difficulty": "intermediate",
+      "tags": ["hooks", "performance"],
+      "shortAnswer": "useMemo caches a computed value; useCallback caches a function reference. Both rerun when deps change.",
+      "detailedExplanation": "useCallback(fn, d) is just useMemo(() => fn, d). Use them to keep referential equality for memoized children and effect deps — not as a default optimization.",
+      "realWorldExample": "Wrapping an onClick passed to a memoized list row prevents the whole list from re-rendering when the parent updates.",
+      "bestPractices": ["Memoize only when profiler proves a need", "Pair with React.memo on the consumer"],
+      "commonMistakes": ["Memoizing everything", "Forgetting deps"],
+      "codeSnippet": { "language": "jsx", "code": "const handleClick = useCallback(() => onSelect(id), [id, onSelect]);" },
+      "interviewTip": "Say 'referential equality' — that's the whole reason these exist."
+    },
+    {
+      "id": "react-004",
+      "title": "Controlled vs uncontrolled components.",
+      "difficulty": "beginner",
+      "tags": ["forms", "state"],
+      "shortAnswer": "Controlled: form state lives in React (value + onChange). Uncontrolled: state lives in the DOM, read via refs.",
+      "detailedExplanation": "Controlled gives you validation, conditional UI, and a single source of truth. Uncontrolled is simpler and often faster for plain forms — React Hook Form leans on it.",
+      "realWorldExample": "A search-as-you-type input is controlled. A 30-field settings form might use React Hook Form's uncontrolled mode for performance.",
+      "bestPractices": ["Controlled for interactive UI", "Uncontrolled + RHF for large forms"],
+      "commonMistakes": ["Mixing controlled and uncontrolled on the same input", "Re-rendering the whole form on every keystroke"],
+      "codeSnippet": { "language": "jsx", "code": "<input value={v} onChange={e => setV(e.target.value)} />" },
+      "interviewTip": "Bring up React Hook Form — current-best-practice signal."
+    },
+    {
+      "id": "react-005",
+      "title": "How does React's reconciliation algorithm work?",
+      "difficulty": "advanced",
+      "tags": ["reconciliation", "fiber"],
+      "shortAnswer": "React diffs trees by element type and key. Same type → update props; different type → unmount and remount. Keys identify children across renders.",
+      "detailedExplanation": "Fiber breaks reconciliation into interruptible units of work, enabling concurrent features like transitions. Stable keys keep component state across reorders.",
+      "realWorldExample": "Reordering a draggable list with stable keys preserves child state (input focus, animations). Index keys would lose it.",
+      "bestPractices": ["Stable keys from data IDs", "Keep component types stable to avoid remounts"],
+      "commonMistakes": ["Inline component definitions inside render", "Switching wrapper element type unintentionally"],
+      "codeSnippet": { "language": "jsx", "code": "// BAD — new component identity on each render\nconst Row = () => <li />;\nfunction List(){ return items.map(() => <Row />) }" },
+      "interviewTip": "Mention Fiber and time-slicing — concurrent React is the modern story."
+    }
+  ]
+}
