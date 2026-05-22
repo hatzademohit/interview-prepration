@@ -1,0 +1,72 @@
+{
+  "category": "css",
+  "label": "CSS",
+  "icon": "Palette",
+  "questions": [
+    {
+      "id": "css-001",
+      "title": "Explain the CSS box model.",
+      "difficulty": "beginner",
+      "tags": ["box-model", "layout"],
+      "shortAnswer": "Every element is a box made of content, padding, border, and margin. box-sizing controls whether width/height includes padding+border.",
+      "detailedExplanation": "By default (content-box), width sets only the content area; padding and border add to total size. border-box includes padding and border in the declared width, which makes layout math predictable.",
+      "realWorldExample": "Resetting * { box-sizing: border-box } is standard in modern CSS so a 300px card stays 300px after padding.",
+      "bestPractices": ["Set box-sizing: border-box globally", "Use logical properties (padding-inline)"],
+      "commonMistakes": ["Mixing box-sizing across components", "Collapsing margins surprises"],
+      "codeSnippet": { "language": "css", "code": "*, *::before, *::after { box-sizing: border-box; }" },
+      "interviewTip": "Mention margin collapsing — a classic follow-up."
+    },
+    {
+      "id": "css-002",
+      "title": "Flexbox vs Grid — when do you use each?",
+      "difficulty": "intermediate",
+      "tags": ["flexbox", "grid", "layout"],
+      "shortAnswer": "Flexbox is one-dimensional (row or column). Grid is two-dimensional (rows and columns). Use Grid for page layouts, Flex for component alignment.",
+      "detailedExplanation": "Grid gives explicit track control and named areas, ideal for app shells. Flex is unbeatable for toolbars, nav, and content that needs to wrap on a single axis.",
+      "realWorldExample": "A dashboard uses Grid for the sidebar+main split and Flex inside the header for logo, search, and avatar.",
+      "bestPractices": ["Combine them — Grid outside, Flex inside", "Use gap instead of margins"],
+      "commonMistakes": ["Faking 2D layouts with nested Flex", "Forgetting min-width: 0 inside flex items"],
+      "codeSnippet": { "language": "css", "code": ".app { display: grid; grid-template-columns: 240px 1fr; }\n.header { display: flex; gap: 1rem; align-items: center; }" },
+      "interviewTip": "Say 'Grid for layout, Flex for components' — it's the canonical answer."
+    },
+    {
+      "id": "css-003",
+      "title": "What is CSS specificity?",
+      "difficulty": "intermediate",
+      "tags": ["specificity", "cascade"],
+      "shortAnswer": "A weight system (inline > id > class/attr/pseudo-class > element) that decides which rule wins when multiple selectors target the same element.",
+      "detailedExplanation": "Specificity is calculated per selector (a,b,c,d). Higher tuple wins; ties go to source order. !important overrides but should be avoided.",
+      "realWorldExample": "Tailwind utility classes work because they're single class selectors (0,1,0) — predictable to override.",
+      "bestPractices": ["Keep selectors flat", "Prefer classes over IDs", "Avoid !important"],
+      "commonMistakes": ["Specificity wars with deeply nested selectors", "Using IDs for styling"],
+      "codeSnippet": { "language": "css", "code": "/* (0,1,0) */ .btn { color: blue; }\n/* (0,1,1) */ a.btn { color: red; }" },
+      "interviewTip": "Mention @layer — it lets you sidestep specificity battles in modern CSS."
+    },
+    {
+      "id": "css-004",
+      "title": "What are pseudo-classes vs pseudo-elements?",
+      "difficulty": "beginner",
+      "tags": ["selectors"],
+      "shortAnswer": "Pseudo-classes (:hover, :focus) target element state. Pseudo-elements (::before, ::after) create or target sub-parts of an element.",
+      "detailedExplanation": "Pseudo-classes use single colon, pseudo-elements use double colon (modern syntax). ::before / ::after require content property to render.",
+      "realWorldExample": "Tooltip arrows are commonly built with ::after positioned absolutely outside the element.",
+      "bestPractices": ["Use :focus-visible for keyboard-only focus rings", "Always set content on ::before/::after"],
+      "commonMistakes": ["Forgetting content: ''", "Using single colon for pseudo-elements (works but legacy)"],
+      "codeSnippet": { "language": "css", "code": ".tooltip::after { content: ''; position: absolute; border-top: 6px solid black; }" },
+      "interviewTip": "Bring up :has() — modern parent selector is a hot topic."
+    },
+    {
+      "id": "css-005",
+      "title": "How do CSS variables (custom properties) work?",
+      "difficulty": "advanced",
+      "tags": ["custom-properties", "theming"],
+      "shortAnswer": "--name declares a value scoped to its element; var(--name) reads it. They cascade and can be overridden per scope — perfect for theming.",
+      "detailedExplanation": "Unlike Sass variables, they live at runtime, can be changed via JS, and react to media queries — enabling dark mode without re-bundling CSS.",
+      "realWorldExample": "Set --bg on :root for light mode and override on .dark for dark mode. Toggle a class on <html> to switch themes.",
+      "bestPractices": ["Define tokens at :root", "Use fallbacks: var(--x, #000)"],
+      "commonMistakes": ["Hardcoding hex everywhere", "Forgetting the leading --"],
+      "codeSnippet": { "language": "css", "code": ":root { --bg: #fff; }\n.dark { --bg: #111; }\nbody { background: var(--bg); }" },
+      "interviewTip": "Mention @property — it lets you type custom props for animation."
+    }
+  ]
+}
