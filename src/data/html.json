@@ -1,0 +1,120 @@
+{
+  "category": "html",
+  "label": "HTML",
+  "icon": "Code2",
+  "questions": [
+    {
+      "id": "html-001",
+      "title": "What is semantic HTML and why does it matter?",
+      "difficulty": "beginner",
+      "tags": ["semantics", "accessibility", "seo"],
+      "shortAnswer": "Semantic HTML uses tags that describe meaning (header, nav, article, section, footer) rather than just appearance, improving accessibility, SEO, and maintainability.",
+      "detailedExplanation": "Semantic elements convey the role of content to browsers, assistive tech, and search engines. Screen readers can build a meaningful outline, search engines weight content correctly, and developers can scan structure faster than reading a wall of divs.",
+      "realWorldExample": "A news site using <article>, <header>, <time>, and <aside> lets Google surface publish dates in SERPs and lets VoiceOver users jump straight to the main story.",
+      "bestPractices": [
+        "Use one <h1> per page, then nested headings in order",
+        "Wrap navigation in <nav>, main content in <main>",
+        "Prefer <button> over clickable <div>"
+      ],
+      "commonMistakes": [
+        "Using <div> for everything",
+        "Skipping heading levels (h1 -> h4)",
+        "Faking buttons with <a href=\"#\">"
+      ],
+      "codeSnippet": {
+        "language": "html",
+        "code": "<article>\n  <header>\n    <h1>Title</h1>\n    <time datetime=\"2025-01-01\">Jan 1, 2025</time>\n  </header>\n  <p>Body...</p>\n</article>"
+      },
+      "interviewTip": "Mention the accessibility tree — interviewers love when you connect semantics to how AT actually consumes the DOM."
+    },
+    {
+      "id": "html-002",
+      "title": "Explain the difference between block, inline, and inline-block elements.",
+      "difficulty": "beginner",
+      "tags": ["layout", "display"],
+      "shortAnswer": "Block elements take full width and start on a new line; inline elements flow with text and ignore width/height; inline-block flows inline but accepts box dimensions.",
+      "detailedExplanation": "Display mode controls layout flow. Block participates in block formatting context; inline participates in line boxes; inline-block sits on the line but is sized like a block.",
+      "realWorldExample": "Buttons in a toolbar are usually inline-block so they wrap on the same line yet respect padding and explicit widths.",
+      "bestPractices": [
+        "Use semantic tags; override display only when needed",
+        "Prefer flex/grid for layouts over display tweaks"
+      ],
+      "commonMistakes": [
+        "Setting width on a default inline <span>",
+        "Forgetting whitespace gaps between inline-block elements"
+      ],
+      "codeSnippet": {
+        "language": "css",
+        "code": ".btn { display: inline-block; padding: 8px 16px; }"
+      },
+      "interviewTip": "Bring up modern alternatives: flex/grid make this question mostly historical."
+    },
+    {
+      "id": "html-003",
+      "title": "What does the data-* attribute do?",
+      "difficulty": "beginner",
+      "tags": ["data-attributes", "dataset"],
+      "shortAnswer": "data-* lets you attach custom data to elements, readable via element.dataset in JS without polluting standard attributes.",
+      "detailedExplanation": "Anything after data- becomes a camelCased key on dataset. It's valid HTML, ignored by browsers, and ideal for hooks into JS or CSS without misusing id/class.",
+      "realWorldExample": "Analytics libraries read data-track-id to capture clicks without coupling logic to specific class names.",
+      "bestPractices": [
+        "Use for non-visual hooks, not for storing large state",
+        "Keep keys hyphen-cased in HTML"
+      ],
+      "commonMistakes": [
+        "Storing JSON blobs that should live in state",
+        "Reading via getAttribute when dataset is cleaner"
+      ],
+      "codeSnippet": {
+        "language": "html",
+        "code": "<button data-user-id=\"42\">Save</button>\n<script>btn.dataset.userId // \"42\"</script>"
+      },
+      "interviewTip": "Contrast it with aria-* — data-* is for app logic, aria-* is for assistive tech."
+    },
+    {
+      "id": "html-004",
+      "title": "How do <script>, <script async>, and <script defer> differ?",
+      "difficulty": "intermediate",
+      "tags": ["performance", "loading"],
+      "shortAnswer": "Plain script blocks parsing; async downloads in parallel and executes ASAP (order not guaranteed); defer downloads in parallel but executes after parsing in document order.",
+      "detailedExplanation": "Async is best for independent scripts (analytics). Defer is best for app code that depends on the DOM and on order. Modules default to defer.",
+      "realWorldExample": "Use defer for your main app bundle and async for a third-party tag that doesn't depend on your code.",
+      "bestPractices": [
+        "Put scripts in <head> with defer",
+        "Avoid mixing async + defer with dependencies"
+      ],
+      "commonMistakes": [
+        "Using async for code that needs the DOM",
+        "Putting blocking scripts at the top without defer"
+      ],
+      "codeSnippet": {
+        "language": "html",
+        "code": "<script src=\"/app.js\" defer></script>\n<script src=\"/analytics.js\" async></script>"
+      },
+      "interviewTip": "Mention <script type=\"module\"> implicitly defers — bonus knowledge points."
+    },
+    {
+      "id": "html-005",
+      "title": "What are ARIA roles and when should you avoid them?",
+      "difficulty": "advanced",
+      "tags": ["aria", "accessibility"],
+      "shortAnswer": "ARIA roles describe element purpose for assistive tech. Avoid them when a native semantic element already provides the role — the first rule of ARIA is don't use ARIA.",
+      "detailedExplanation": "ARIA fills gaps in HTML semantics (custom widgets, dynamic content) but adds maintenance cost and can break if state isn't kept in sync. Native <button>, <nav>, <dialog> are always preferred.",
+      "realWorldExample": "A custom combobox built from divs needs role=\"combobox\", aria-expanded, aria-controls — but a <select> needs none of it.",
+      "bestPractices": [
+        "Prefer native elements first",
+        "Keep aria-* state synced with visual state",
+        "Test with a screen reader"
+      ],
+      "commonMistakes": [
+        "Adding role=\"button\" to a <button>",
+        "Forgetting to update aria-expanded on toggle"
+      ],
+      "codeSnippet": {
+        "language": "html",
+        "code": "<div role=\"button\" tabindex=\"0\" aria-pressed=\"false\">Toggle</div>"
+      },
+      "interviewTip": "Cite the five rules of ARIA — interviewers love named principles."
+    }
+  ]
+}
