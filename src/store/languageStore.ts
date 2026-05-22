@@ -50,7 +50,7 @@ export const useLanguageStore = create<LanguageStoreState>((set, get) => ({
     const res = await languageService.update(id, patch);
     if (res.status !== "success") {
       set({ languages: prev });
-      throw new Error(res.message);
+      throw new Error(res.status === "error" ? res.message : "Failed");
     }
   },
 }));
