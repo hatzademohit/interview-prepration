@@ -40,7 +40,7 @@ export const useLanguageStore = create<LanguageStoreState>((set, get) => ({
       return res.data;
     }
     set({ languages: prev });
-    throw new Error(res.message);
+    throw new Error(res.status === "error" ? res.message : "Failed");
   },
   async updateLanguage(id, patch) {
     const prev = get().languages;
