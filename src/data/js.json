@@ -1,0 +1,72 @@
+{
+  "category": "js",
+  "label": "JavaScript",
+  "icon": "Braces",
+  "questions": [
+    {
+      "id": "js-001",
+      "title": "Explain the event loop.",
+      "difficulty": "advanced",
+      "tags": ["event-loop", "async", "concurrency"],
+      "shortAnswer": "JS runs on a single thread. The event loop pulls callbacks from the microtask queue (Promises) and then the macrotask queue (setTimeout, I/O) when the call stack is empty.",
+      "detailedExplanation": "Each tick: run all microtasks until exhausted, render if needed, then take one macrotask. This is why a Promise resolution runs before a 0ms setTimeout.",
+      "realWorldExample": "A heavy synchronous loop blocks rendering because the event loop can't pick up paint or input tasks until the stack clears.",
+      "bestPractices": ["Break long work with setTimeout or scheduler.yield", "Prefer microtasks for sequencing"],
+      "commonMistakes": ["Assuming setTimeout(fn, 0) runs immediately", "Blocking the loop with sync work"],
+      "codeSnippet": { "language": "js", "code": "console.log('a');\nsetTimeout(() => console.log('b'));\nPromise.resolve().then(() => console.log('c'));\n// a, c, b" },
+      "interviewTip": "Mention microtask vs macrotask explicitly — it's the canonical distinction."
+    },
+    {
+      "id": "js-002",
+      "title": "What's the difference between == and ===?",
+      "difficulty": "beginner",
+      "tags": ["equality", "coercion"],
+      "shortAnswer": "== performs type coercion before comparing; === requires both type and value to match.",
+      "detailedExplanation": "Coercion rules are unintuitive (e.g. [] == false). Always prefer === unless you specifically want loose equality (rare).",
+      "realWorldExample": "Lint configs (eslint:recommended) enable eqeqeq by default.",
+      "bestPractices": ["Always use ===", "Use == null only as a null/undefined check"],
+      "commonMistakes": ["Relying on 0 == ''", "NaN === NaN is false"],
+      "codeSnippet": { "language": "js", "code": "0 == ''   // true\n0 === ''  // false\nNaN === NaN // false" },
+      "interviewTip": "Mention Object.is for NaN-safe comparison."
+    },
+    {
+      "id": "js-003",
+      "title": "Closures — what are they?",
+      "difficulty": "intermediate",
+      "tags": ["closures", "scope"],
+      "shortAnswer": "A closure is a function that retains access to variables from its lexical scope even after that scope has exited.",
+      "detailedExplanation": "Every function in JS captures its surrounding scope. This enables private state, factories, and partial application.",
+      "realWorldExample": "useState's setter is a closure capturing the React internal state slot.",
+      "bestPractices": ["Use closures for module-private state", "Be aware of memory: closures hold references"],
+      "commonMistakes": ["Stale closures in useEffect", "Capturing loop var with var instead of let"],
+      "codeSnippet": { "language": "js", "code": "const counter = () => { let n = 0; return () => ++n; };\nconst c = counter();\nc(); c(); // 2" },
+      "interviewTip": "Connect closures to React hook stale-state bugs — modern, practical."
+    },
+    {
+      "id": "js-004",
+      "title": "var vs let vs const.",
+      "difficulty": "beginner",
+      "tags": ["scope", "hoisting"],
+      "shortAnswer": "var is function-scoped and hoisted; let and const are block-scoped. const prevents reassignment (not deep immutability).",
+      "detailedExplanation": "let/const live in the temporal dead zone until declared. const arrays/objects can still be mutated — Object.freeze for shallow immutability.",
+      "realWorldExample": "Use const by default, let when reassignment is needed, never var in new code.",
+      "bestPractices": ["Default to const", "Use let in loops"],
+      "commonMistakes": ["var leaking out of blocks", "Thinking const means immutable"],
+      "codeSnippet": { "language": "js", "code": "const arr = [];\narr.push(1); // OK\narr = [];    // TypeError" },
+      "interviewTip": "Mention TDZ by name — shows depth."
+    },
+    {
+      "id": "js-005",
+      "title": "How does prototypal inheritance work?",
+      "difficulty": "advanced",
+      "tags": ["prototype", "inheritance"],
+      "shortAnswer": "Every object has a [[Prototype]] link. Property lookups walk the chain until found or null is reached.",
+      "detailedExplanation": "class syntax is sugar over prototypes. Object.create(proto) sets the prototype directly. Methods defined on a class live on Class.prototype, shared across instances.",
+      "realWorldExample": "Array methods like .map live on Array.prototype, not on each array instance.",
+      "bestPractices": ["Prefer class syntax for clarity", "Avoid mutating built-in prototypes"],
+      "commonMistakes": ["Adding to Object.prototype", "Confusing __proto__ with .prototype"],
+      "codeSnippet": { "language": "js", "code": "class Animal { speak(){ return 'hi' } }\nclass Dog extends Animal {}\nnew Dog().speak(); // 'hi'" },
+      "interviewTip": "Be clear: instance.__proto__ === Class.prototype."
+    }
+  ]
+}
