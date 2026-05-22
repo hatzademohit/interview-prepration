@@ -57,7 +57,7 @@ export function AddLanguageDialog({ open, onClose }: AddLanguageDialogProps) {
 
   const onSubmit = async (values: FormValues) => {
     try {
-      await addLanguage({ ...values, description: values.description ?? "" });
+      await addLanguage(values);
       toast.success(`Added ${values.name}`);
       onClose();
     } catch (e) {
