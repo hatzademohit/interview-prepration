@@ -1,0 +1,72 @@
+{
+  "category": "typescript",
+  "label": "TypeScript",
+  "icon": "FileCode",
+  "questions": [
+    {
+      "id": "ts-001",
+      "title": "interface vs type — which should you use?",
+      "difficulty": "beginner",
+      "tags": ["interface", "type-alias"],
+      "shortAnswer": "Both describe object shapes. Use interface for public object shapes you want to extend or merge; use type for unions, intersections, mapped, and conditional types.",
+      "detailedExplanation": "interfaces support declaration merging (handy for module augmentation). type aliases are more flexible for non-object shapes. Pick one as the default and stay consistent.",
+      "realWorldExample": "Library authors expose interfaces so consumers can augment them; app code often defaults to type for the extra power.",
+      "bestPractices": ["Pick a default, stick with it", "Use type for unions and mapped types"],
+      "commonMistakes": ["Mixing them inconsistently", "Trying to extend a union type with interface"],
+      "codeSnippet": { "language": "ts", "code": "interface User { id: string }\ntype Status = 'idle' | 'loading' | 'error'" },
+      "interviewTip": "Mention declaration merging — a key interface-only feature."
+    },
+    {
+      "id": "ts-002",
+      "title": "What are generics?",
+      "difficulty": "intermediate",
+      "tags": ["generics"],
+      "shortAnswer": "Generics let functions and types operate on values of any type while preserving the specific type at the call site.",
+      "detailedExplanation": "Generics turn types into parameters. Constraints (T extends U) keep them safe; defaults make them ergonomic.",
+      "realWorldExample": "Array<T>, Promise<T>, useState<T>() — all rely on generics so the return type matches what you put in.",
+      "bestPractices": ["Constrain generics when possible", "Don't add generics if T is used only once"],
+      "commonMistakes": ["Generic soup", "Using any when a generic would do"],
+      "codeSnippet": { "language": "ts", "code": "function first<T>(arr: T[]): T | undefined { return arr[0] }\nfirst([1,2,3]) // number | undefined" },
+      "interviewTip": "Drop the phrase 'preserve type information across the boundary' — it sounds senior."
+    },
+    {
+      "id": "ts-003",
+      "title": "unknown vs any.",
+      "difficulty": "intermediate",
+      "tags": ["unknown", "any", "safety"],
+      "shortAnswer": "any disables type checking; unknown is type-safe — you must narrow it before use.",
+      "detailedExplanation": "unknown is the recommended top type for data you don't trust (API responses, JSON.parse). Narrow with typeof, instanceof, or a Zod schema.",
+      "realWorldExample": "fetch().then(r => r.json()) returns Promise<any> — wrap with Zod to convert to a typed result.",
+      "bestPractices": ["Default to unknown for foreign data", "Avoid any entirely if possible"],
+      "commonMistakes": ["Spreading any through the codebase", "Forgetting to narrow unknown"],
+      "codeSnippet": { "language": "ts", "code": "function isString(x: unknown): x is string { return typeof x === 'string' }" },
+      "interviewTip": "Show a user-defined type guard — interviewers love them."
+    },
+    {
+      "id": "ts-004",
+      "title": "What are utility types? Name a few.",
+      "difficulty": "intermediate",
+      "tags": ["utility-types"],
+      "shortAnswer": "Built-in generics that transform types: Partial<T>, Required<T>, Pick<T,K>, Omit<T,K>, Record<K,V>, ReturnType<F>, Awaited<T>.",
+      "detailedExplanation": "They reduce boilerplate and keep derived types in sync with their source. Composing them solves most real schema mapping problems.",
+      "realWorldExample": "type CreateUser = Omit<User, 'id' | 'createdAt'> models the input shape for a POST /users endpoint.",
+      "bestPractices": ["Derive types, don't duplicate them", "Use Pick/Omit to keep DTOs in sync with models"],
+      "commonMistakes": ["Reinventing utility types", "Deep Partial pitfalls"],
+      "codeSnippet": { "language": "ts", "code": "type User = { id: string; name: string }\ntype Update = Partial<Omit<User, 'id'>>" },
+      "interviewTip": "Mention Awaited<T> — relatively new, signals you keep up."
+    },
+    {
+      "id": "ts-005",
+      "title": "What are discriminated unions?",
+      "difficulty": "advanced",
+      "tags": ["unions", "narrowing"],
+      "shortAnswer": "A union where each member shares a common literal field (the discriminant). Narrowing on that field tells TS which member you're in.",
+      "detailedExplanation": "Discriminants enable exhaustive checks via switch + never. They model state machines and API result shapes cleanly.",
+      "realWorldExample": "AsyncState<T> = { status: 'idle' } | { status: 'loading' } | { status: 'success'; data: T } | { status: 'error'; message: string }",
+      "bestPractices": ["Always include a discriminant literal", "Exhaustive switch with never default"],
+      "commonMistakes": ["Forgetting the literal", "Falling back to any in default case"],
+      "codeSnippet": { "language": "ts", "code": "function render(s: AsyncState<User>) {\n  switch (s.status) { case 'success': return s.data.name }\n}" },
+      "interviewTip": "Show the never-default exhaustive check — top-tier signal."
+    }
+  ]
+}
