@@ -22,10 +22,10 @@ import type { AddLanguageDialogProps } from "@/types";
 const schema = z.object({
   name: z.string().min(2).max(40),
   slug: z.string().min(2).max(40).regex(/^[a-z0-9-]+$/, "lowercase, dashes only"),
-  description: z.string().max(200).optional().default(""),
-  icon: z.string().default("Code"),
+  description: z.string().max(200),
+  icon: z.string(),
   color: z.string().regex(/^#([0-9a-f]{6})$/i, "hex color, e.g. #6366f1"),
-  displayOrder: z.coerce.number().int().min(0).default(0),
+  displayOrder: z.coerce.number().int().min(0),
 });
 
 type FormValues = z.infer<typeof schema>;
