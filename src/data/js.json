@@ -2974,6 +2974,243 @@
         "code": "for(var i=0;i<3;i++){\n setTimeout(()=>console.log(i),0);\n}"
       },
       "interviewTip": "Expect follow-up questions asking how let changes the output."
+    },
+    {
+      "id": "real-js-121",
+      "title": "Implement a custom reduce() function.",
+      "difficulty": "advanced",
+      "tags": [
+        "polyfill",
+        "array",
+        "reduce"
+      ],
+      "shortAnswer": "Write your own implementation of Array.prototype.reduce().",
+      "detailedExplanation": "This question evaluates your understanding of accumulators, iteration, initial values, and callback execution.",
+      "realWorldExample": "Calculating the total price of items in a shopping cart.",
+      "bestPractices": [
+        "Handle the initial accumulator correctly.",
+        "Return the accumulated value after iteration."
+      ],
+      "commonMistakes": [
+        "Ignoring the initial value.",
+        "Returning the wrong accumulator."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "Array.prototype.myReduce = function(callback, initial){\n  let acc = initial;\n  let start = 0;\n  if(acc === undefined){\n    acc = this[0];\n    start = 1;\n  }\n  for(let i=start;i<this.length;i++){\n    acc = callback(acc, this[i], i, this);\n  }\n  return acc;\n};"
+      },
+      "interviewTip": "Most interviewers ask how reduce behaves when no initial value is provided."
+    },
+    {
+      "id": "real-js-122",
+      "title": "Implement a custom Promise.",
+      "difficulty": "advanced",
+      "tags": [
+        "promise",
+        "polyfill",
+        "async"
+      ],
+      "shortAnswer": "Create a simplified implementation of JavaScript Promise.",
+      "detailedExplanation": "Tests understanding of asynchronous programming, promise states, callbacks, and chaining.",
+      "realWorldExample": "Building an internal asynchronous utility library.",
+      "bestPractices": [
+        "Understand pending, fulfilled, and rejected states."
+      ],
+      "commonMistakes": [
+        "Executing callbacks synchronously."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "// Simplified Promise implementation is commonly asked in senior interviews."
+      },
+      "interviewTip": "Interviewers usually expect explanation more than a production-ready implementation."
+    },
+    {
+      "id": "real-js-123",
+      "title": "Reverse a string without using reverse().",
+      "difficulty": "beginner",
+      "tags": [
+        "string",
+        "algorithm"
+      ],
+      "shortAnswer": "Reverse a string manually.",
+      "detailedExplanation": "Simple algorithmic question often used as a warm-up.",
+      "realWorldExample": "Processing text data.",
+      "bestPractices": [
+        "Use loops or recursion."
+      ],
+      "commonMistakes": [
+        "Using split('').reverse().join('') when explicitly prohibited."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "function reverse(str){\n let result='';\n for(let i=str.length-1;i>=0;i--){\n   result+=str[i];\n }\n return result;\n}"
+      },
+      "interviewTip": "Sometimes interviewers ask for O(1) extra space discussion."
+    },
+    {
+      "id": "real-js-124",
+      "title": "Find duplicate elements in an array.",
+      "difficulty": "intermediate",
+      "tags": [
+        "array",
+        "algorithm"
+      ],
+      "shortAnswer": "Return all duplicate values from an array.",
+      "detailedExplanation": "Tests knowledge of Sets, Maps, and frequency counting.",
+      "realWorldExample": "Removing duplicate user IDs before processing.",
+      "bestPractices": [
+        "Use a Set for optimal performance."
+      ],
+      "commonMistakes": [
+        "Returning duplicate duplicates."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "function duplicates(arr){\n const seen=new Set();\n const dup=new Set();\n for(const item of arr){\n   if(seen.has(item)) dup.add(item);\n   seen.add(item);\n }\n return [...dup];\n}"
+      },
+      "interviewTip": "Be ready to discuss time complexity."
+    },
+    {
+      "id": "real-js-125",
+      "title": "Find the first non-repeating character.",
+      "difficulty": "intermediate",
+      "tags": [
+        "string",
+        "hashmap"
+      ],
+      "shortAnswer": "Return the first character that appears only once.",
+      "detailedExplanation": "Checks understanding of frequency maps.",
+      "realWorldExample": "Finding unique identifiers in text processing.",
+      "bestPractices": [
+        "Count frequencies first."
+      ],
+      "commonMistakes": [
+        "Scanning the string multiple times unnecessarily."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "function firstUnique(str){\n const map={};\n for(const ch of str) map[ch]=(map[ch]||0)+1;\n for(const ch of str) if(map[ch]===1) return ch;\n return null;\n}"
+      },
+      "interviewTip": "Discuss O(n) time complexity."
+    },
+    {
+      "id": "real-js-126",
+      "title": "What is the output of this closure example?",
+      "difficulty": "advanced",
+      "tags": [
+        "closure",
+        "output"
+      ],
+      "shortAnswer": "Explain why the function remembers variables after execution.",
+      "detailedExplanation": "A classic output-based interview question about closures.",
+      "realWorldExample": "Private variables in JavaScript modules.",
+      "bestPractices": [
+        "Explain lexical scope first."
+      ],
+      "commonMistakes": [
+        "Thinking variables are copied instead of referenced."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "function outer(){\n let count=0;\n return function(){\n   return ++count;\n }\n}\nconst fn=outer();\nconsole.log(fn());\nconsole.log(fn());"
+      },
+      "interviewTip": "Interviewers expect both the output and the reasoning."
+    },
+    {
+      "id": "real-js-127",
+      "title": "Implement an LRU Cache.",
+      "difficulty": "advanced",
+      "tags": [
+        "cache",
+        "map",
+        "algorithm"
+      ],
+      "shortAnswer": "Design a Least Recently Used cache with efficient operations.",
+      "detailedExplanation": "Frequently asked in product-based companies to test data structure knowledge.",
+      "realWorldExample": "Caching API responses in applications.",
+      "bestPractices": [
+        "Use Map to preserve insertion order."
+      ],
+      "commonMistakes": [
+        "Not updating recently accessed items."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "// LRU Cache implementation using Map is commonly expected."
+      },
+      "interviewTip": "Know the expected O(1) complexity for get() and put()."
+    },
+    {
+      "id": "real-js-128",
+      "title": "Implement an EventEmitter.",
+      "difficulty": "advanced",
+      "tags": [
+        "design",
+        "events"
+      ],
+      "shortAnswer": "Create publish-subscribe functionality similar to Node.js EventEmitter.",
+      "detailedExplanation": "Tests object-oriented design and callback management.",
+      "realWorldExample": "Building an event bus for frontend applications.",
+      "bestPractices": [
+        "Support multiple listeners per event."
+      ],
+      "commonMistakes": [
+        "Forgetting to remove listeners."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "// Common machine coding interview question."
+      },
+      "interviewTip": "Follow-up questions often include once() and off() methods."
+    },
+    {
+      "id": "real-js-129",
+      "title": "Implement a retry mechanism for failed API calls.",
+      "difficulty": "advanced",
+      "tags": [
+        "async",
+        "retry",
+        "fetch"
+      ],
+      "shortAnswer": "Retry a failed asynchronous request a specified number of times.",
+      "detailedExplanation": "Evaluates asynchronous programming and error handling.",
+      "realWorldExample": "Retrying requests during temporary network failures.",
+      "bestPractices": [
+        "Limit retries.",
+        "Use exponential backoff when appropriate."
+      ],
+      "commonMistakes": [
+        "Retrying indefinitely."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "async function retry(fn,retries){\n while(retries--){\n   try{return await fn();}\n   catch(e){if(!retries) throw e;}\n }\n}"
+      },
+      "interviewTip": "Many interviewers ask how to add exponential backoff."
+    },
+    {
+      "id": "real-js-130",
+      "title": "Write a function to group objects by a property.",
+      "difficulty": "intermediate",
+      "tags": [
+        "array",
+        "objects"
+      ],
+      "shortAnswer": "Group array items based on a given key.",
+      "detailedExplanation": "Frequently asked in frontend interviews involving data transformation.",
+      "realWorldExample": "Grouping employees by department.",
+      "bestPractices": [
+        "Use reduce() for a concise solution."
+      ],
+      "commonMistakes": [
+        "Overwriting existing groups."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "function groupBy(arr,key){\n return arr.reduce((acc,obj)=>{\n   (acc[obj[key]] ||= []).push(obj);\n   return acc;\n },{});\n}"
+      },
+      "interviewTip": "A common follow-up is to support nested property paths like 'address.city'."
     }
   ]
 }
