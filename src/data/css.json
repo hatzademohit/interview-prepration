@@ -1,0 +1,439 @@
+{
+  "category": "css",
+  "label": "CSS",
+  "icon": "Palette",
+  "questions": [
+    {
+      "id": "css-001",
+      "title": "Explain the CSS box model.",
+      "difficulty": "beginner",
+      "tags": ["box-model", "layout"],
+      "shortAnswer": "Every element is a box made of content, padding, border, and margin. box-sizing controls whether width/height includes padding and border.",
+      "detailedExplanation": "By default (content-box), width sets only the content area — padding and border are added on top. With border-box, padding and border are included inside the declared width, making layout math predictable. Margin always sits outside and is never included in width.",
+      "realWorldExample": "Setting * { box-sizing: border-box } globally means a card declared at 300px stays 300px wide even after adding 16px padding — no surprise overflow.",
+      "bestPractices": [
+        "Set box-sizing: border-box globally via *, *::before, *::after",
+        "Use logical properties (padding-inline, margin-block) for RTL support",
+        "Never rely on default content-box in component libraries"
+      ],
+      "commonMistakes": [
+        "Mixing box-sizing values across components causing alignment breaks",
+        "Not accounting for margin collapsing between adjacent elements",
+        "Assuming padding increases a container's clickable area in all browsers"
+      ],
+      "codeSnippet": {
+        "language": "css",
+        "code": "*, *::before, *::after {\n  box-sizing: border-box;\n}\n\n.card {\n  width: 300px;\n  padding: 16px;   /* stays 300px total — not 332px */\n  border: 1px solid #ccc;\n}"
+      },
+      "interviewTip": "Always mention margin collapsing as a follow-up — vertical margins between sibling blocks collapse to the larger value, which trips up almost every developer."
+    },
+    {
+      "id": "css-002",
+      "title": "What is the difference between inline, block, and inline-block elements?",
+      "difficulty": "beginner",
+      "tags": ["display", "layout", "flow"],
+      "shortAnswer": "Block elements take full width and start on a new line. Inline elements flow within text and ignore width/height. Inline-block combines both — flows inline but respects width, height, and vertical padding.",
+      "detailedExplanation": "Block elements (div, p, h1) create a new formatting context and stretch to fill their container. Inline elements (span, a, strong) sit in the text flow and only take up as much space as their content. Inline-block gives you the layout control of block without breaking text flow — useful for buttons and badges.",
+      "realWorldExample": "A navigation link styled as display: inline-block lets you set a fixed height and vertical padding for a larger click target while keeping links side by side in a row.",
+      "bestPractices": [
+        "Prefer flexbox or grid over inline-block for complex alignment",
+        "Use display: block on full-width CTAs and display: inline for text-level styling only",
+        "Remember that inline elements ignore top/bottom margin"
+      ],
+      "commonMistakes": [
+        "Setting width/height on inline elements and wondering why it has no effect",
+        "Whitespace gaps between inline-block elements caused by HTML line breaks",
+        "Using display: block inside flex/grid where it has no visual effect"
+      ],
+      "codeSnippet": {
+        "language": "css",
+        "code": ".badge {\n  display: inline-block;\n  padding: 4px 10px;   /* vertical padding works */\n  width: 80px;         /* width works */\n  border-radius: 12px;\n}\n\n/* gap trick: set font-size: 0 on parent to kill whitespace nodes */\n.nav {\n  font-size: 0;\n}\n.nav a {\n  display: inline-block;\n  font-size: 1rem;\n}"
+      },
+      "interviewTip": "Mention the whitespace node gotcha with inline-block — interviewers love it because it has caused real bugs. The modern fix is just to use flexbox."
+    },
+    {
+      "id": "css-003",
+      "title": "What is CSS specificity and how is it calculated?",
+      "difficulty": "beginner",
+      "tags": ["specificity", "cascade", "selectors"],
+      "shortAnswer": "Specificity is a weight system (inline > ID > class/attribute/pseudo-class > element) that determines which rule wins when multiple selectors target the same element.",
+      "detailedExplanation": "Specificity is calculated as a three-part tuple (a, b, c): a = number of IDs, b = number of classes, attributes, and pseudo-classes, c = number of element and pseudo-element selectors. Higher tuple wins; ties go to source order. Inline styles beat all selectors. !important beats everything but should be treated as a last resort.",
+      "realWorldExample": "Tailwind utility classes are single-class selectors (0,1,0), making them easy to override. Deeply nested BEM selectors like .nav__list--active can reach (0,3,2) and cause painful override wars.",
+      "bestPractices": [
+        "Keep selectors flat — one or two levels deep maximum",
+        "Prefer classes over IDs for styling",
+        "Use @layer to manage specificity across design system layers"
+      ],
+      "commonMistakes": [
+        "Reaching for !important instead of refactoring selector specificity",
+        "Using IDs for component styles making them nearly impossible to override",
+        "Assuming source order always wins — it only applies when specificity ties"
+      ],
+      "codeSnippet": {
+        "language": "css",
+        "code": "/* (0,0,1) — element */\np { color: black; }\n\n/* (0,1,0) — class */\n.highlight { color: blue; }\n\n/* (0,1,1) — class + element */\np.highlight { color: green; }   /* wins over .highlight alone */\n\n/* (1,0,0) — ID beats all above */\n#intro { color: red; }\n\n/* @layer: base styles lose to unlayered rules regardless of specificity */\n@layer base {\n  p { color: black; }\n}"
+      },
+      "interviewTip": "Bring up @layer (CSS Cascade Layers) — it was introduced specifically to solve specificity wars in large codebases. Showing you know modern CSS always scores points."
+    },
+    {
+      "id": "css-004",
+      "title": "How does CSS inheritance work?",
+      "difficulty": "beginner",
+      "tags": ["inheritance", "cascade"],
+      "shortAnswer": "Inherited properties (color, font-size, line-height) flow from parent to child automatically. Non-inherited properties (border, padding, background) do not. You can force any property with inherit, initial, or unset.",
+      "detailedExplanation": "The browser applies a default value for every property on every element. For inherited properties, the default is to take the parent's computed value. For non-inherited properties, it is the property's initial value. The keywords inherit, initial, unset, and revert give you explicit control over this behavior.",
+      "realWorldExample": "Setting font-family and color on body propagates to all text descendants automatically. But adding border: 1px solid red to a parent does not give every child a border.",
+      "bestPractices": [
+        "Set base typography (font-family, font-size, line-height, color) on body and let inheritance do the work",
+        "Use inherit explicitly when a property like border-radius should match its parent",
+        "Use unset to strip both author and user-agent styles cleanly"
+      ],
+      "commonMistakes": [
+        "Redundantly setting font-family on every component instead of inheriting from body",
+        "Expecting background-color to inherit — it does not, it defaults to transparent",
+        "Confusing inherit (use parent's value) with initial (use spec's default value)"
+      ],
+      "codeSnippet": {
+        "language": "css",
+        "code": "body {\n  font-family: Inter, sans-serif; /* inherited by all descendants */\n  color: #111;\n}\n\n.reset-btn {\n  font: inherit;     /* buttons don't inherit font by default — fix it */\n  color: inherit;\n  border: none;\n  background: none;\n}"
+      },
+      "interviewTip": "Mention that form elements (input, button, textarea) famously do not inherit font by default — it is one of the most common CSS resets developers apply."
+    },
+    {
+      "id": "css-005",
+      "title": "What are pseudo-classes vs pseudo-elements?",
+      "difficulty": "beginner",
+      "tags": ["selectors", "pseudo-classes", "pseudo-elements"],
+      "shortAnswer": "Pseudo-classes (:hover, :focus) target element state. Pseudo-elements (::before, ::after) create or style a sub-part of an element.",
+      "detailedExplanation": "Pseudo-classes use a single colon and match elements based on state, position, or relationship (:nth-child, :not, :has). Pseudo-elements use double colons (modern syntax) and generate virtual nodes that can be styled independently. ::before and ::after require a content property — even content: '' — to render.",
+      "realWorldExample": "Tooltip arrows are built with ::after positioned absolutely and given zero-width/height borders to form a CSS triangle, with no extra HTML markup needed.",
+      "bestPractices": [
+        "Use :focus-visible instead of :focus for keyboard-only focus rings",
+        "Always set content on ::before and ::after even if it is an empty string",
+        "Use :is() and :where() to simplify long selector lists"
+      ],
+      "commonMistakes": [
+        "Forgetting content: '' on pseudo-elements so they never render",
+        "Using single colon for pseudo-elements (::before) — valid but not modern",
+        "Trying to use pseudo-elements on replaced elements like img or input"
+      ],
+      "codeSnippet": {
+        "language": "css",
+        "code": "/* Pseudo-class — state based */\n.btn:hover { background: #0056b3; }\n.btn:focus-visible { outline: 2px solid #0056b3; }\n\n/* Pseudo-element — virtual node */\n.tooltip::after {\n  content: '';\n  position: absolute;\n  top: 100%;\n  left: 50%;\n  transform: translateX(-50%);\n  border: 6px solid transparent;\n  border-top-color: #333;\n}"
+      },
+      "interviewTip": "Bring up :has() — the long-awaited 'parent selector' that shipped in all major browsers in 2023. It is still a popular interview topic because it fundamentally changes what CSS can express."
+    },
+    {
+      "id": "css-006",
+      "title": "Flexbox vs Grid — when do you use each?",
+      "difficulty": "intermediate",
+      "tags": ["flexbox", "grid", "layout"],
+      "shortAnswer": "Flexbox is one-dimensional (row or column). Grid is two-dimensional (rows and columns). Use Grid for macro page layouts and Flex for component-level alignment.",
+      "detailedExplanation": "Grid gives you explicit track definitions, named template areas, and control over both axes simultaneously — ideal for app shells and card grids. Flex is unbeatable for toolbars, navigation bars, and any UI where items need to align and wrap on a single axis. They are designed to complement each other, not compete.",
+      "realWorldExample": "A dashboard uses CSS Grid for the overall sidebar-plus-main-content layout, then Flexbox inside the header to align the logo, search bar, and avatar row — each tool in its ideal role.",
+      "bestPractices": [
+        "Use Grid for layout, Flex for components — this is the canonical rule",
+        "Combine them: Grid for the outer shell, Flex inside individual cells",
+        "Use gap on both instead of margins for consistent spacing"
+      ],
+      "commonMistakes": [
+        "Nesting multiple levels of Flex to simulate a two-dimensional grid",
+        "Forgetting min-width: 0 and min-height: 0 on flex/grid items to allow shrinking",
+        "Using fixed pixel tracks in Grid when fr units or minmax() would be more responsive"
+      ],
+      "codeSnippet": {
+        "language": "css",
+        "code": "/* Grid: two-dimensional page shell */\n.app {\n  display: grid;\n  grid-template-columns: 240px 1fr;\n  grid-template-rows: 60px 1fr;\n  grid-template-areas:\n    'sidebar header'\n    'sidebar main';\n  height: 100vh;\n}\n\n/* Flex: one-dimensional header alignment */\n.header {\n  grid-area: header;\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  padding: 0 1.5rem;\n}"
+      },
+      "interviewTip": "Say 'Grid for layout, Flex for components' as the opener, then show you understand both. Bonus: mention subgrid — it lets child items align to the parent grid tracks, solving the card footer alignment problem."
+    },
+    {
+      "id": "css-007",
+      "title": "What is the difference between position: relative, absolute, fixed, and sticky?",
+      "difficulty": "intermediate",
+      "tags": ["positioning", "layout", "stacking-context"],
+      "shortAnswer": "relative offsets from its natural position. absolute removes from flow and anchors to the nearest positioned ancestor. fixed anchors to the viewport. sticky is a hybrid — scrolls with the page until a threshold, then sticks.",
+      "detailedExplanation": "Every positioned element (anything except static) creates a new stacking context candidate. absolute positioning is relative to the closest ancestor with position other than static. If none exists, it uses the initial containing block (viewport). fixed always uses the viewport, but a parent with transform, filter, or will-change breaks this and makes it position relative to that ancestor instead.",
+      "realWorldExample": "A tooltip uses position: absolute on the tooltip box inside a position: relative trigger wrapper, so it anchors to the button regardless of where it sits in the page. A sticky table header uses position: sticky; top: 0 to stay visible while the table body scrolls.",
+      "bestPractices": [
+        "Always add position: relative to the intended containing block for absolute children",
+        "Prefer sticky over JavaScript scroll listeners for pinned headers",
+        "Use z-index only on positioned elements — it has no effect on static"
+      ],
+      "commonMistakes": [
+        "Expecting fixed to work inside a transformed parent — transform creates a new containing block",
+        "Forgetting to set a top/left/right/bottom offset so the positioned element does not move",
+        "Not giving sticky a threshold (top: 0) which makes it behave like relative"
+      ],
+      "codeSnippet": {
+        "language": "css",
+        "code": "/* Tooltip pattern */\n.trigger {\n  position: relative; /* establishes containing block */\n}\n.tooltip {\n  position: absolute;\n  top: calc(100% + 8px);\n  left: 50%;\n  transform: translateX(-50%);\n}\n\n/* Sticky table header */\nth {\n  position: sticky;\n  top: 0;\n  background: white; /* needed — sticky is transparent by default */\n  z-index: 1;\n}"
+      },
+      "interviewTip": "The transform-breaks-fixed gotcha trips up many senior developers — if you know it, say it. It explains why a modal inside an animated container suddenly stops covering the screen."
+    },
+    {
+      "id": "css-008",
+      "title": "How does the CSS cascade work?",
+      "difficulty": "intermediate",
+      "tags": ["cascade", "specificity", "inheritance"],
+      "shortAnswer": "The cascade is an algorithm that resolves which CSS declaration wins when multiple rules target the same property on the same element. It evaluates: origin and importance → specificity → order of appearance.",
+      "detailedExplanation": "The full cascade order from highest to lowest: (1) user-agent !important, (2) author !important, (3) author normal, (4) user-agent normal. Within the same origin, specificity breaks ties, and source order is the final tiebreaker. CSS Cascade Layers (@layer) introduce a new sub-tier within author styles, letting you explicitly control which layer wins without fighting specificity.",
+      "realWorldExample": "A CSS reset sits at the bottom of the cascade by being placed in @layer reset, ensuring it never overrides component or utility styles regardless of its selector specificity.",
+      "bestPractices": [
+        "Structure @layer in order: reset, base, components, utilities",
+        "Avoid !important except for utility overrides or accessibility-critical rules",
+        "Keep selectors low-specificity so the cascade can flow naturally"
+      ],
+      "commonMistakes": [
+        "Thinking source order is the primary cascade resolver — specificity comes first",
+        "Not knowing that inline styles sit above all stylesheet rules except !important",
+        "Ignoring @layer and then fighting specificity battles in large codebases"
+      ],
+      "codeSnippet": {
+        "language": "css",
+        "code": "@layer reset, base, components, utilities;\n\n@layer reset {\n  * { margin: 0; padding: 0; }\n}\n\n@layer base {\n  body { font-family: Inter, sans-serif; }\n}\n\n@layer components {\n  .btn { padding: 8px 16px; border-radius: 4px; }\n}\n\n@layer utilities {\n  .mt-4 { margin-top: 1rem; } /* beats components regardless of specificity */\n}"
+      },
+      "interviewTip": "Explaining @layer shows you understand modern CSS beyond just specificity tricks. The key insight: unlayered styles always beat layered ones, so third-party libraries placed in a layer can be easily overridden."
+    },
+    {
+      "id": "css-009",
+      "title": "What are CSS custom properties (variables) and how do they enable theming?",
+      "difficulty": "intermediate",
+      "tags": ["custom-properties", "theming", "variables"],
+      "shortAnswer": "--name declares a runtime variable scoped to its element; var(--name) reads it. They cascade, are overridable per scope, and can be changed with JavaScript — making them ideal for theming.",
+      "detailedExplanation": "Unlike Sass variables which are compiled away, CSS custom properties exist at runtime in the browser. They inherit through the DOM like other CSS values. Overriding them on a scoped selector (like .dark on the html element) instantly repaints all consuming elements without re-bundling. They also respond to media queries and can be animated with @property.",
+      "realWorldExample": "Define --color-bg and --color-text on :root for light mode. Override both inside a .dark class on the html element. Toggle the class from JavaScript on a button click — dark mode with zero runtime cost.",
+      "bestPractices": [
+        "Define all design tokens at :root for global access",
+        "Always provide a fallback: var(--color-primary, #0070f3)",
+        "Use @property to give custom properties a type, enabling CSS transitions on them"
+      ],
+      "commonMistakes": [
+        "Forgetting the double leading dash -- making the declaration invalid",
+        "Hardcoding hex colors in components instead of consuming tokens",
+        "Trying to use custom properties inside media query conditions — they cannot be used there"
+      ],
+      "codeSnippet": {
+        "language": "css",
+        "code": ":root {\n  --color-bg: #ffffff;\n  --color-text: #111111;\n  --color-primary: #0070f3;\n}\n\n.dark {\n  --color-bg: #0a0a0a;\n  --color-text: #ededed;\n  --color-primary: #3b82f6;\n}\n\nbody {\n  background: var(--color-bg);\n  color: var(--color-text);\n}\n\n/* Animate with @property */\n@property --progress {\n  syntax: '<number>';\n  initial-value: 1;\n  inherits: false;\n}"
+      },
+      "interviewTip": "Mention @property — it registers a custom property with a type so the browser can interpolate it for animations. It is the key to animating gradients with CSS alone."
+    },
+    {
+      "id": "css-010",
+      "title": "What is a stacking context and how does z-index actually work?",
+      "difficulty": "intermediate",
+      "tags": ["stacking-context", "z-index", "positioning"],
+      "shortAnswer": "A stacking context is an isolated layer in the z-axis. z-index only competes within the same stacking context. A new context is created by position + z-index, opacity < 1, transform, filter, will-change, and others.",
+      "detailedExplanation": "Within a stacking context, z-index values are local — a z-index: 9999 inside a stacking context with z-index: 1 cannot paint above a sibling context with z-index: 2. The most common debugging confusion is setting a very high z-index and it still not appearing on top, because it is trapped inside a lower-stacking-context ancestor.",
+      "realWorldExample": "A modal dialog fails to appear above a fixed nav even with z-index: 1000 because its parent has transform: translateY(0), creating a stacking context with a lower z-index than the nav.",
+      "bestPractices": [
+        "Flatten the DOM tree for overlays — portals or teleport patterns solve this",
+        "Document z-index values in a token scale (--z-dropdown: 100, --z-modal: 200)",
+        "Audit stacking contexts with browser DevTools 3D layers view"
+      ],
+      "commonMistakes": [
+        "Assuming z-index: 9999 always wins — context boundaries override raw values",
+        "Not knowing that opacity: 0.99 creates a new stacking context",
+        "Applying z-index to static-positioned elements where it has no effect"
+      ],
+      "codeSnippet": {
+        "language": "css",
+        "code": "/* Token scale — prevents z-index wars */\n:root {\n  --z-base: 0;\n  --z-dropdown: 100;\n  --z-sticky: 200;\n  --z-overlay: 300;\n  --z-modal: 400;\n  --z-toast: 500;\n}\n\n/* Context trap — avoid this pattern */\n.parent {\n  transform: translateX(0); /* creates stacking context! */\n  position: relative;\n  z-index: 1;\n}\n.child {\n  z-index: 9999; /* only beats siblings inside .parent, NOT global elements */\n}"
+      },
+      "interviewTip": "Walk through a stacking context debug scenario — it shows real-world problem solving. Also mention that React portals exist partly to escape stacking context traps for modals and tooltips."
+    },
+    {
+      "id": "css-011",
+      "title": "What is the difference between em, rem, %, vw/vh, and px?",
+      "difficulty": "intermediate",
+      "tags": ["units", "responsive", "typography"],
+      "shortAnswer": "px is absolute. em is relative to the element's own font-size. rem is relative to the root font-size. % is relative to the parent. vw/vh are relative to the viewport dimensions.",
+      "detailedExplanation": "em compounds through nesting — a 1.2em element inside another 1.2em parent computes to 1.44× the root size. rem avoids this by always referencing :root font-size. % for width references the parent's width; for font-size it references the parent's font-size. New units like dvh (dynamic viewport height) solve the iOS Safari bottom-bar problem that vh suffered from.",
+      "realWorldExample": "Using rem for font sizes and spacing ensures a user's browser accessibility zoom setting scales the entire UI proportionally. Using px for border and box-shadow keeps those details crisp at all zoom levels.",
+      "bestPractices": [
+        "Use rem for font-size and spacing to respect user zoom preferences",
+        "Use % or fr for layout widths, not px",
+        "Use dvh instead of vh for full-height mobile layouts to avoid iOS Safari bar overlap"
+      ],
+      "commonMistakes": [
+        "Setting html { font-size: 10px } and breaking user accessibility zoom settings",
+        "Using vh for mobile hero sections — the iOS Safari address bar collapses and causes jumps",
+        "Mixing em units across nested components leading to compounding size issues"
+      ],
+      "codeSnippet": {
+        "language": "css",
+        "code": ":root {\n  font-size: 100%; /* respects browser default — usually 16px */\n}\n\n.heading { font-size: 2rem; }     /* 32px — always relative to root */\n.subtext { font-size: 0.875rem; } /* 14px */\n.card    { padding: 1.5rem; }     /* 24px — scales with zoom */\n\n/* Mobile full-height — use dvh not vh */\n.hero {\n  height: 100dvh; /* accounts for collapsing browser chrome */\n}"
+      },
+      "interviewTip": "Mentioning dvh (dynamic viewport height) and why vh is problematic on mobile shows you have shipped real responsive code, not just theory."
+    },
+    {
+      "id": "css-012",
+      "title": "How do CSS transitions and animations differ, and when do you use each?",
+      "difficulty": "intermediate",
+      "tags": ["transitions", "animations", "performance"],
+      "shortAnswer": "Transitions animate between two states triggered by a state change (hover, class toggle). Animations (@keyframes) run independently, can loop, have multiple steps, and do not need a trigger.",
+      "detailedExplanation": "Transitions need a start state, end state, and a trigger (pseudo-class or class change). They are declarative and require no JavaScript. Animations with @keyframes are self-contained — they start on page load (or when the class is applied) and can control timing per step. For performance, always animate transform and opacity as they do not trigger layout or paint — only compositing.",
+      "realWorldExample": "A button uses transition: background-color 150ms ease for hover feedback. A loading spinner uses @keyframes rotate with animation: spin 1s linear infinite since it needs to loop continuously without any external trigger.",
+      "bestPractices": [
+        "Only animate transform and opacity for 60fps performance — avoid animating width, height, or top/left",
+        "Use prefers-reduced-motion to disable animations for accessibility",
+        "Use animation-fill-mode: forwards to hold the last keyframe after an animation ends"
+      ],
+      "commonMistakes": [
+        "Animating width and height causing expensive layout recalculations on every frame",
+        "Not wrapping animations in prefers-reduced-motion media query",
+        "Forgetting to set transition on the base state (not just :hover) causing no transition on mouse-out"
+      ],
+      "codeSnippet": {
+        "language": "css",
+        "code": "/* Transition: state change */\n.btn {\n  background: #0070f3;\n  transition: background-color 150ms ease, transform 150ms ease;\n}\n.btn:hover {\n  background: #0056b3;\n  transform: translateY(-1px);\n}\n\n/* Animation: autonomous loop */\n@keyframes spin {\n  to { transform: rotate(360deg); }\n}\n.spinner {\n  animation: spin 1s linear infinite;\n}\n\n/* Accessibility */\n@media (prefers-reduced-motion: reduce) {\n  *, *::before, *::after {\n    animation-duration: 0.01ms !important;\n    transition-duration: 0.01ms !important;\n  }\n}"
+      },
+      "interviewTip": "Always mention prefers-reduced-motion — it signals accessibility awareness. Also note that the GPU-composited properties are only transform and opacity — this is a key performance interview answer."
+    },
+    {
+      "id": "css-013",
+      "title": "What are CSS media queries and how do you approach mobile-first responsive design?",
+      "difficulty": "intermediate",
+      "tags": ["responsive", "media-queries", "mobile-first"],
+      "shortAnswer": "Media queries apply styles conditionally based on viewport width, resolution, or user preferences. Mobile-first means writing base styles for small screens and progressively enhancing with min-width breakpoints.",
+      "detailedExplanation": "Mobile-first is superior because mobile styles are simpler (linear layout, no hover states) and complex features are added progressively. This results in less CSS being parsed on mobile devices. Media queries also support non-width conditions: prefers-color-scheme, prefers-reduced-motion, prefers-contrast, hover, and pointer — enabling deeply accessible responsive design.",
+      "realWorldExample": "A card grid starts as single-column on mobile (base CSS), becomes two-column at min-width: 640px, and three-column at min-width: 1024px — each breakpoint only adds what changes, keeping the diff minimal.",
+      "bestPractices": [
+        "Write mobile-first: base styles for small screens, min-width breakpoints for larger",
+        "Use relative units (em) in media queries so they scale with user font-size preferences",
+        "Define breakpoints as named tokens in custom properties or a Sass map"
+      ],
+      "commonMistakes": [
+        "Using max-width (desktop-first) leading to specificity overrides and bloated mobile CSS",
+        "Using px in media queries — they do not scale with browser font-size zoom",
+        "Setting too many micro-breakpoints instead of letting intrinsic CSS (auto-fill, minmax) handle adaptation"
+      ],
+      "codeSnippet": {
+        "language": "css",
+        "code": "/* Mobile-first base */\n.grid {\n  display: grid;\n  grid-template-columns: 1fr;\n  gap: 1rem;\n}\n\n/* Tablet: 2 columns */\n@media (min-width: 40em) {\n  .grid { grid-template-columns: repeat(2, 1fr); }\n}\n\n/* Desktop: 3 columns */\n@media (min-width: 64em) {\n  .grid { grid-template-columns: repeat(3, 1fr); }\n}\n\n/* Intrinsic responsive — no media query needed */\n.auto-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));\n}"
+      },
+      "interviewTip": "Mention intrinsic responsive design — using auto-fill with minmax() in Grid and flex-wrap with a min-width on Flex creates fully responsive layouts without a single media query. It shows mastery beyond just breakpoints."
+    },
+    {
+      "id": "css-014",
+      "title": "What causes layout reflow and repaint, and how do you avoid them in CSS?",
+      "difficulty": "advanced",
+      "tags": ["performance", "rendering", "reflow", "repaint"],
+      "shortAnswer": "Reflow recalculates layout geometry (triggered by width, height, top, margin changes). Repaint redraws pixels without recalculating layout (triggered by color, background, box-shadow changes). Both block the main thread. Only transform and opacity skip both via GPU compositing.",
+      "detailedExplanation": "The browser rendering pipeline is: Parse → Style → Layout → Paint → Composite. Changing a composited property (transform, opacity) skips Layout and Paint and goes directly to Composite — handled by the GPU off the main thread. Properties like width, height, top, and left force the browser back to the Layout step, which is expensive because it can affect surrounding elements.",
+      "realWorldExample": "Animating a modal entrance with transform: translateY(-20px) → translateY(0) is silky smooth at 60fps. Animating it with top: -20px → top: 0 triggers reflow on every frame and causes jank on lower-end devices.",
+      "bestPractices": [
+        "Only animate transform and opacity — they are the only GPU-composited properties",
+        "Use will-change: transform sparingly on elements that will animate, to promote them to their own layer",
+        "Avoid reading layout properties (offsetWidth, getBoundingClientRect) in JS loops — batch reads then writes"
+      ],
+      "commonMistakes": [
+        "Using will-change on every element to 'optimize' — it increases memory usage with no benefit on static elements",
+        "Animating margin, padding, width, or height causing expensive layout recalculations",
+        "Reading and then immediately writing layout properties in JavaScript forcing forced synchronous layouts"
+      ],
+      "codeSnippet": {
+        "language": "css",
+        "code": "/* BAD: triggers reflow every frame */\n.modal-bad {\n  transition: top 300ms ease;\n  top: -100px; /* layout property */\n}\n\n/* GOOD: GPU composited — no reflow */\n.modal-good {\n  transition: transform 300ms ease, opacity 300ms ease;\n  transform: translateY(-20px);\n  opacity: 0;\n}\n.modal-good.visible {\n  transform: translateY(0);\n  opacity: 1;\n}\n\n/* Promote to own layer only when it will actually animate */\n.chart-canvas {\n  will-change: transform;\n}"
+      },
+      "interviewTip": "Draw the pipeline: Parse → Style → Layout → Paint → Composite. Explain that transform and opacity feed directly into Composite. This level of rendering knowledge differentiates senior candidates instantly."
+    },
+    {
+      "id": "css-015",
+      "title": "How does CSS Grid's implicit vs explicit grid work?",
+      "difficulty": "advanced",
+      "tags": ["grid", "layout", "implicit-grid"],
+      "shortAnswer": "The explicit grid is what you define with grid-template-columns/rows. The implicit grid is auto-created by the browser for items that overflow the explicit tracks. grid-auto-rows and grid-auto-columns control implicit track sizes.",
+      "detailedExplanation": "When items are placed outside the explicitly defined tracks — either because there are more items than tracks or an item is explicitly placed outside — the browser generates implicit tracks. By default, implicit tracks are sized auto (content-sized). You control their size with grid-auto-rows. The auto-fill and auto-fit keywords in repeat() are distinct: auto-fill creates empty tracks to fill space, auto-fit collapses empty tracks.",
+      "realWorldExample": "A photo gallery with grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) and grid-auto-rows: 200px creates a fully responsive, equal-height grid with no JavaScript and no media queries.",
+      "bestPractices": [
+        "Set grid-auto-rows to a consistent value for item grids to prevent height inconsistency",
+        "Use auto-fit over auto-fill when you want the last row to stretch rather than leave empty columns",
+        "Use grid-column: span 2 to have an item span multiple explicit + implicit tracks"
+      ],
+      "commonMistakes": [
+        "Confusing auto-fill and auto-fit — auto-fill keeps empty tracks, auto-fit collapses them",
+        "Not setting grid-auto-rows causing implicit tracks to be content-sized and uneven",
+        "Placing items at explicit negative line numbers without understanding the implicit grid expands in both directions"
+      ],
+      "codeSnippet": {
+        "language": "css",
+        "code": ".gallery {\n  display: grid;\n  /* auto-fill: keeps empty tracks | auto-fit: collapses them */\n  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n  grid-auto-rows: 220px; /* implicit rows are 220px */\n  gap: 1rem;\n}\n\n/* Featured item spans 2 columns — works even in implicit grid */\n.gallery__featured {\n  grid-column: span 2;\n  grid-row: span 2;\n}"
+      },
+      "interviewTip": "Explaining the auto-fill vs auto-fit distinction with a real example shows Grid mastery. Follow up by mentioning subgrid (grid-template-columns: subgrid) — it allows grandchildren to align to a grandparent grid, solving the misaligned card-footer problem."
+    },
+    {
+      "id": "css-016",
+      "title": "What is the contain property and how does it improve CSS performance?",
+      "difficulty": "advanced",
+      "tags": ["performance", "contain", "rendering"],
+      "shortAnswer": "contain tells the browser that an element's subtree is independent from the rest of the document, allowing it to skip reflow, repaint, and style recalculations outside that subtree.",
+      "detailedExplanation": "contain accepts values: layout (changes inside do not affect outside layout), paint (overflow is clipped and the element is opaque to the outside), style (counter and quote scoping), and size (element size is independent of children). content is shorthand for layout paint. strict adds size. The newer content-visibility: auto goes further — it tells the browser to skip rendering entirely for off-screen elements, delivering massive performance gains on long pages.",
+      "realWorldExample": "A social media feed uses content-visibility: auto on each post. Posts below the fold are not rendered at all. Scrolling performance improves dramatically on feeds with thousands of posts because the browser skips layout and paint for invisible items.",
+      "bestPractices": [
+        "Apply contain: content to independent widget-like components (cards, feed items)",
+        "Use content-visibility: auto with contain-intrinsic-size on repeating list items for large list performance",
+        "Combine with will-change: transform only when animation is imminent, not statically"
+      ],
+      "commonMistakes": [
+        "Using contain: strict on elements whose size is determined by content — it breaks layout",
+        "Not providing contain-intrinsic-size with content-visibility: auto causing scroll bar jumping",
+        "Over-applying contain everywhere — it has overhead and is only beneficial on genuinely isolated subtrees"
+      ],
+      "codeSnippet": {
+        "language": "css",
+        "code": "/* Isolated card widget */\n.card {\n  contain: content; /* shorthand for layout + paint */\n}\n\n/* Virtual rendering for long lists */\n.feed-item {\n  content-visibility: auto;\n  /* Placeholder size while off-screen — prevents scrollbar jump */\n  contain-intrinsic-size: 0 320px;\n}\n\n/* Strict containment for fixed-size widgets */\n.avatar {\n  width: 48px;\n  height: 48px;\n  contain: strict; /* size + layout + paint + style */\n}"
+      },
+      "interviewTip": "content-visibility: auto is one of the most impactful single-property performance wins in modern CSS. Knowing it — and that it requires contain-intrinsic-size to prevent scrollbar jumps — shows you have worked with large-scale list rendering."
+    },
+    {
+      "id": "css-017",
+      "title": "How does CSS logical properties improve internationalization?",
+      "difficulty": "advanced",
+      "tags": ["logical-properties", "i18n", "rtl", "writing-modes"],
+      "shortAnswer": "Logical properties (margin-inline-start, padding-block-end) map to physical directions (left, bottom) relative to the writing mode, making layouts automatically flip for RTL languages without extra CSS.",
+      "detailedExplanation": "Physical properties (margin-left, padding-top) are hardcoded to screen direction. Logical properties use inline (horizontal in horizontal writing) and block (vertical in horizontal writing) axes. In an RTL document, margin-inline-start maps to the right side automatically. In a vertical writing mode (Japanese, Mongolian), the axes flip accordingly. Adopting logical properties future-proofs a codebase for any writing system.",
+      "realWorldExample": "A news platform launching an Arabic edition uses padding-inline-start instead of padding-left throughout its component library. Setting dir='rtl' on the html element instantly mirrors the entire layout correctly — zero component changes needed.",
+      "bestPractices": [
+        "Replace left/right margin and padding with inline-start/inline-end",
+        "Replace top/bottom margin and padding with block-start/block-end",
+        "Use inset-inline-start instead of left for positioned elements"
+      ],
+      "commonMistakes": [
+        "Mixing logical and physical properties on the same element causing unpredictable results in RTL",
+        "Forgetting that border-radius has logical equivalents (border-start-start-radius)",
+        "Using text-align: left instead of text-align: start — left is always left, start flips with direction"
+      ],
+      "codeSnippet": {
+        "language": "css",
+        "code": "/* Physical — breaks in RTL */\n.card-bad {\n  margin-left: 1rem;\n  padding-right: 1.5rem;\n  border-left: 3px solid blue;\n}\n\n/* Logical — works in LTR and RTL automatically */\n.card-good {\n  margin-inline-start: 1rem;\n  padding-inline-end: 1.5rem;\n  border-inline-start: 3px solid blue;\n}\n\n/* Text alignment */\n.label {\n  text-align: start; /* left in LTR, right in RTL */\n}"
+      },
+      "interviewTip": "This topic immediately signals that you think about internationalization from the architecture level, not as an afterthought. Mention that MUI v5+ uses logical properties internally, which is relevant for any React project."
+    },
+    {
+      "id": "css-018",
+      "title": "What are CSS Houdini and the Paint API?",
+      "difficulty": "advanced",
+      "tags": ["houdini", "paint-api", "css-typed-om", "advanced"],
+      "shortAnswer": "CSS Houdini is a set of low-level browser APIs that expose the CSS rendering engine to JavaScript, letting developers define custom CSS properties with types, write paint worklets, and hook into the style/layout pipelines.",
+      "detailedExplanation": "Houdini consists of: CSS Typed OM (access CSS values as typed JS objects instead of strings), Properties & Values API (@property — register custom properties with type, initial value, and inheritance), Paint API (define custom background/border images with canvas-like JavaScript), Layout API (define custom layout algorithms), and Animation Worklet (off-thread animations). Of these, @property has the best browser support and is already widely useful for animating gradients and typed tokens.",
+      "realWorldExample": "A data visualization component uses a CSS Paint Worklet to draw a custom animated wavy background that responds to --wave-amplitude and --wave-color custom properties. The wave updates in sync with scroll position via a single custom property change, with all rendering off the main thread.",
+      "bestPractices": [
+        "Use @property today — it has broad support and is the most immediately useful Houdini API",
+        "Paint worklets run on a separate thread and must be stateless — drive them entirely via custom properties",
+        "Use CSS Typed OM in performance-critical JS animations to avoid string parsing overhead"
+      ],
+      "commonMistakes": [
+        "Attempting to use Layout API or Animation Worklet in production — browser support is incomplete",
+        "Making paint worklets stateful — they are called at unpredictable times and must derive everything from input properties",
+        "Registering @property without specifying inherits, which defaults to false and may break child elements"
+      ],
+      "codeSnippet": {
+        "language": "css",
+        "code": "/* @property — register a typed custom property */\n@property --gradient-angle {\n  syntax: '<angle>';\n  initial-value: 0deg;\n  inherits: false;\n}\n\n/* Now it can be transitioned/animated */\n.gradient-card {\n  background: conic-gradient(from var(--gradient-angle), #0070f3, #7928ca, #0070f3);\n  transition: --gradient-angle 1s ease;\n}\n.gradient-card:hover {\n  --gradient-angle: 360deg; /* animates because type is registered */\n}\n\n/* CSS Typed OM: type-safe property access in JS */\n/* el.attributeStyleMap.set('opacity', CSS.number(0.5)) */\n/* el.computedStyleMap().get('width').value — returns number, not '300px' */"
+      },
+      "interviewTip": "@property is the Houdini feature to master today. Being able to animate a conic gradient by transitioning a registered angle custom property is a stunning demo that shows deep CSS knowledge. Few candidates at any level know this."
+    }
+  ]
+}

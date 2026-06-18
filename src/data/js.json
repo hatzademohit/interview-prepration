@@ -1,0 +1,2979 @@
+{
+  "category": "js",
+  "label": "JavaScript",
+  "icon": "Braces",
+  "questions": [
+    {
+      "id": "js-001",
+      "title": "What is JavaScript?",
+      "difficulty": "beginner",
+      "tags": [
+        "javascript",
+        "basics",
+        "introduction"
+      ],
+      "shortAnswer": "JavaScript is a high-level, interpreted, single-threaded programming language primarily used to create interactive web applications.",
+      "detailedExplanation": "JavaScript is one of the core technologies of the web alongside HTML and CSS. It allows developers to create dynamic web pages, manipulate the DOM, handle user interactions, communicate with servers using APIs, and build full-stack applications using environments like Node.js. Modern JavaScript also supports object-oriented, functional, and asynchronous programming paradigms.",
+      "realWorldExample": "When you click a button on a website and a modal opens without refreshing the page, JavaScript is handling that interaction.",
+      "bestPractices": [
+        "Learn JavaScript fundamentals before moving to frameworks.",
+        "Write readable and maintainable code.",
+        "Follow modern ES6+ syntax."
+      ],
+      "commonMistakes": [
+        "Confusing JavaScript with Java.",
+        "Thinking JavaScript only runs in browsers."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "console.log('Hello, JavaScript!');"
+      },
+      "interviewTip": "Mention that JavaScript runs in browsers as well as on servers using Node.js."
+    },
+    {
+      "id": "js-002",
+      "title": "What is the difference between var, let and const?",
+      "difficulty": "beginner",
+      "tags": [
+        "variables",
+        "var",
+        "let",
+        "const"
+      ],
+      "shortAnswer": "var is function-scoped and can be redeclared. let is block-scoped and can be reassigned. const is block-scoped and cannot be reassigned.",
+      "detailedExplanation": "var has function scope, is hoisted with an initial value of undefined, and allows redeclaration. let and const are block-scoped and are hoisted but remain in the Temporal Dead Zone until initialized. let allows reassignment, while const requires initialization and cannot be reassigned.",
+      "realWorldExample": "Use const for API URLs or configuration values, let for counters, and avoid var in modern JavaScript.",
+      "bestPractices": [
+        "Use const by default.",
+        "Use let only when reassignment is needed.",
+        "Avoid var in modern applications."
+      ],
+      "commonMistakes": [
+        "Using var inside loops.",
+        "Trying to reassign const.",
+        "Confusing block scope with function scope."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const PI = 3.14;\nlet count = 1;\ncount++;\n// PI = 4; // Error"
+      },
+      "interviewTip": "Always explain scope, hoisting, and the Temporal Dead Zone."
+    },
+    {
+      "id": "js-003",
+      "title": "What are the primitive data types in JavaScript?",
+      "difficulty": "beginner",
+      "tags": [
+        "data-types",
+        "primitive"
+      ],
+      "shortAnswer": "JavaScript has seven primitive data types: String, Number, Boolean, Undefined, Null, Symbol, and BigInt.",
+      "detailedExplanation": "Primitive values are immutable and stored by value. Unlike objects, they don't have properties that can be modified directly. JavaScript automatically wraps primitives with object wrappers when methods are called.",
+      "realWorldExample": "User names are stored as strings, age as numbers, and login status as booleans.",
+      "bestPractices": [
+        "Use the correct data type for the problem.",
+        "Understand the difference between primitive and reference types."
+      ],
+      "commonMistakes": [
+        "Confusing null with undefined.",
+        "Assuming arrays are primitive types."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "let name = 'Mohit';\nlet age = 25;\nlet active = true;"
+      },
+      "interviewTip": "Remember all seven primitive data types."
+    },
+    {
+      "id": "js-004",
+      "title": "What is the difference between null and undefined?",
+      "difficulty": "beginner",
+      "tags": [
+        "null",
+        "undefined",
+        "data-types"
+      ],
+      "shortAnswer": "undefined means a variable has not been assigned a value, while null is an intentional assignment representing no value.",
+      "detailedExplanation": "undefined is automatically assigned by JavaScript when variables are declared but not initialized. null is explicitly assigned by developers to indicate the intentional absence of a value.",
+      "realWorldExample": "An API response may return null when a value intentionally doesn't exist.",
+      "bestPractices": [
+        "Use null intentionally.",
+        "Check for undefined before accessing values."
+      ],
+      "commonMistakes": [
+        "Using == instead of ===.",
+        "Treating null and undefined as identical."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "let a;\nlet b = null;\nconsole.log(a); // undefined\nconsole.log(b); // null"
+      },
+      "interviewTip": "Mention that typeof null returns 'object', which is a historical JavaScript bug."
+    },
+    {
+      "id": "js-005",
+      "title": "What is the difference between == and ===?",
+      "difficulty": "beginner",
+      "tags": [
+        "comparison",
+        "operators",
+        "type-coercion"
+      ],
+      "shortAnswer": "== compares values after type coercion, while === compares both value and type without coercion.",
+      "detailedExplanation": "The loose equality operator (==) converts operands to a common type before comparison. The strict equality operator (===) compares operands without conversion, making it more predictable and safer.",
+      "realWorldExample": "User input often comes as strings, so understanding equality operators prevents unexpected bugs.",
+      "bestPractices": [
+        "Prefer === in modern JavaScript.",
+        "Avoid relying on implicit type coercion."
+      ],
+      "commonMistakes": [
+        "Using == without understanding coercion.",
+        "Comparing different data types unintentionally."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "console.log(5 == '5'); // true\nconsole.log(5 === '5'); // false"
+      },
+      "interviewTip": "Interviewers usually expect you to recommend ===."
+    },
+    {
+      "id": "js-006",
+      "title": "What is type coercion?",
+      "difficulty": "beginner",
+      "tags": [
+        "type-coercion",
+        "operators"
+      ],
+      "shortAnswer": "Type coercion is JavaScript's automatic conversion of one data type into another during an operation or comparison.",
+      "detailedExplanation": "JavaScript performs implicit type conversion when operands have different types. This behavior is common with arithmetic operators and loose equality. Developers can also perform explicit type conversion using functions like Number(), String(), and Boolean().",
+      "realWorldExample": "Values received from HTML input fields are strings and often need to be converted into numbers before calculations.",
+      "bestPractices": [
+        "Use explicit conversion whenever possible.",
+        "Avoid relying on implicit coercion."
+      ],
+      "commonMistakes": [
+        "Unexpected string concatenation.",
+        "Using == without understanding coercion."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "console.log('5' + 1); // '51'\nconsole.log('5' - 1); // 4"
+      },
+      "interviewTip": "Explain both implicit and explicit type conversion."
+    },
+    {
+      "id": "js-007",
+      "title": "What are truthy and falsy values?",
+      "difficulty": "beginner",
+      "tags": [
+        "boolean",
+        "truthy",
+        "falsy"
+      ],
+      "shortAnswer": "Falsy values are false, 0, -0, '', null, undefined, NaN and 0n. Everything else is truthy.",
+      "detailedExplanation": "JavaScript converts values to boolean in conditional statements. Understanding truthy and falsy values helps avoid unexpected behavior in if statements and logical operations.",
+      "realWorldExample": "Checking whether an API returned a value before displaying it on the screen.",
+      "bestPractices": [
+        "Be explicit when checking values.",
+        "Use strict comparisons when appropriate."
+      ],
+      "commonMistakes": [
+        "Assuming empty arrays are falsy.",
+        "Assuming empty objects are falsy."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "if([]){\n  console.log('Truthy');\n}"
+      },
+      "interviewTip": "Remember that [] and {} are truthy."
+    },
+    {
+      "id": "js-008",
+      "title": "Explain if...else statements.",
+      "difficulty": "beginner",
+      "tags": [
+        "conditionals",
+        "if",
+        "else"
+      ],
+      "shortAnswer": "if...else statements execute different blocks of code based on whether a condition evaluates to true or false.",
+      "detailedExplanation": "JavaScript evaluates the condition inside the if statement. If it's truthy, the if block executes; otherwise, the else block executes. Multiple conditions can be handled using else if.",
+      "realWorldExample": "Showing a login page when the user is not authenticated.",
+      "bestPractices": [
+        "Keep conditions simple.",
+        "Avoid deeply nested if statements."
+      ],
+      "commonMistakes": [
+        "Using assignment (=) instead of comparison (===)."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const age = 20;\nif(age >= 18){\n  console.log('Adult');\n}else{\n  console.log('Minor');\n}"
+      },
+      "interviewTip": "Mention that JavaScript evaluates truthy and falsy values in conditions."
+    },
+    {
+      "id": "js-009",
+      "title": "What are the different types of loops in JavaScript?",
+      "difficulty": "beginner",
+      "tags": [
+        "loops",
+        "for",
+        "while",
+        "for-of",
+        "for-in"
+      ],
+      "shortAnswer": "JavaScript supports for, while, do...while, for...of and for...in loops.",
+      "detailedExplanation": "Each loop has a specific purpose. for is ideal when the number of iterations is known. while is useful when the number of iterations is unknown. for...of iterates over iterable values like arrays, while for...in iterates over object keys.",
+      "realWorldExample": "Displaying all products from an array in an e-commerce application.",
+      "bestPractices": [
+        "Use for...of for arrays.",
+        "Use for...in for objects."
+      ],
+      "commonMistakes": [
+        "Using for...in with arrays.",
+        "Creating infinite loops."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const nums = [1,2,3];\nfor(const num of nums){\n  console.log(num);\n}"
+      },
+      "interviewTip": "Explain where each loop should be used."
+    },
+    {
+      "id": "js-010",
+      "title": "What is a function in JavaScript?",
+      "difficulty": "beginner",
+      "tags": [
+        "functions",
+        "basics"
+      ],
+      "shortAnswer": "A function is a reusable block of code that performs a specific task and can accept parameters and return values.",
+      "detailedExplanation": "Functions help organize code into reusable units. JavaScript supports function declarations, function expressions, and arrow functions. Functions are first-class objects, meaning they can be assigned to variables, passed as arguments, and returned from other functions.",
+      "realWorldExample": "A calculateTotal() function can be reused across multiple checkout pages.",
+      "bestPractices": [
+        "Keep functions focused on one responsibility.",
+        "Use descriptive function names.",
+        "Return values instead of relying on global variables."
+      ],
+      "commonMistakes": [
+        "Writing functions that are too large.",
+        "Not returning values when needed."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "function greet(name){\n  return `Hello ${name}`;\n}\nconsole.log(greet('Mohit'));"
+      },
+      "interviewTip": "Mention that functions are first-class citizens in JavaScript."
+    },
+    {
+      "id": "js-011",
+      "title": "What is function hoisting in JavaScript?",
+      "difficulty": "intermediate",
+      "tags": [
+        "functions",
+        "hoisting",
+        "execution-context"
+      ],
+      "shortAnswer": "Function declarations are fully hoisted, allowing them to be called before their declaration. Function expressions are not fully hoisted.",
+      "detailedExplanation": "During the creation phase of the execution context, JavaScript stores function declarations completely in memory. Function expressions assigned to variables follow the hoisting behavior of the variable (var, let, or const), so they cannot be invoked before initialization.",
+      "realWorldExample": "Utility functions can be declared at the bottom of a file and still be used earlier if they are function declarations.",
+      "bestPractices": [
+        "Prefer function declarations for reusable utilities.",
+        "Use function expressions when you need lexical scoping or closures."
+      ],
+      "commonMistakes": [
+        "Calling function expressions before initialization.",
+        "Confusing function declarations with arrow functions."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "greet();\n\nfunction greet() {\n  console.log('Hello');\n}"
+      },
+      "interviewTip": "Clearly differentiate function declarations from function expressions."
+    },
+    {
+      "id": "js-012",
+      "title": "What is hoisting in JavaScript?",
+      "difficulty": "intermediate",
+      "tags": [
+        "hoisting",
+        "variables",
+        "execution-context"
+      ],
+      "shortAnswer": "Hoisting is JavaScript's behavior of moving declarations to the top of their scope before execution.",
+      "detailedExplanation": "JavaScript processes declarations before executing code. Variables declared with var are initialized with undefined, whereas let and const remain in the Temporal Dead Zone until initialized. Function declarations are fully hoisted.",
+      "realWorldExample": "Accessing a var variable before assignment returns undefined instead of throwing an error.",
+      "bestPractices": [
+        "Declare variables before using them.",
+        "Use let and const instead of var."
+      ],
+      "commonMistakes": [
+        "Assuming variables contain assigned values before initialization.",
+        "Ignoring the Temporal Dead Zone."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "console.log(a);\nvar a = 10;\n// undefined"
+      },
+      "interviewTip": "Mention creation phase and execution phase."
+    },
+    {
+      "id": "js-013",
+      "title": "What is the Temporal Dead Zone (TDZ)?",
+      "difficulty": "intermediate",
+      "tags": [
+        "let",
+        "const",
+        "tdz",
+        "hoisting"
+      ],
+      "shortAnswer": "The Temporal Dead Zone is the period between entering a scope and initializing a let or const variable.",
+      "detailedExplanation": "Although let and const declarations are hoisted, they cannot be accessed until execution reaches their declaration. Attempting to do so throws a ReferenceError.",
+      "realWorldExample": "Accessing configuration variables before they are initialized causes runtime errors.",
+      "bestPractices": [
+        "Declare variables before using them.",
+        "Initialize const immediately."
+      ],
+      "commonMistakes": [
+        "Assuming let behaves like var.",
+        "Using variables before declaration."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "console.log(count);\nlet count = 5;"
+      },
+      "interviewTip": "TDZ is one of the most commonly asked ES6 interview topics."
+    },
+    {
+      "id": "js-014",
+      "title": "What is function scope?",
+      "difficulty": "beginner",
+      "tags": [
+        "scope",
+        "functions"
+      ],
+      "shortAnswer": "Variables declared inside a function are only accessible within that function.",
+      "detailedExplanation": "Function scope limits the visibility of variables to the function where they are declared. This helps avoid naming conflicts and protects internal implementation details.",
+      "realWorldExample": "Temporary variables used for tax calculation remain private inside the calculation function.",
+      "bestPractices": [
+        "Limit variable scope whenever possible.",
+        "Avoid unnecessary global variables."
+      ],
+      "commonMistakes": [
+        "Expecting local variables to be available globally."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "function demo(){\n  let x = 10;\n}\n// console.log(x); // Error"
+      },
+      "interviewTip": "Explain the difference between global, function, and block scope."
+    },
+    {
+      "id": "js-015",
+      "title": "What is block scope?",
+      "difficulty": "beginner",
+      "tags": [
+        "scope",
+        "let",
+        "const"
+      ],
+      "shortAnswer": "Variables declared with let and const are only accessible within the block where they are declared.",
+      "detailedExplanation": "A block is defined by curly braces {}. let and const respect block scope, while var ignores it and remains function-scoped.",
+      "realWorldExample": "Loop variables declared with let are isolated to each iteration.",
+      "bestPractices": [
+        "Prefer let and const.",
+        "Keep variables inside the smallest possible scope."
+      ],
+      "commonMistakes": [
+        "Using var inside blocks expecting block scope."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "{\n  let message = 'Hello';\n}\n// console.log(message); // Error"
+      },
+      "interviewTip": "Compare block scope with function scope."
+    },
+    {
+      "id": "js-016",
+      "title": "What are function expressions?",
+      "difficulty": "intermediate",
+      "tags": [
+        "functions",
+        "expressions"
+      ],
+      "shortAnswer": "A function expression stores a function inside a variable.",
+      "detailedExplanation": "Function expressions can be anonymous or named. Unlike function declarations, they are not fully hoisted and follow the hoisting rules of their variable.",
+      "realWorldExample": "Callback functions are often written as function expressions.",
+      "bestPractices": [
+        "Use const for function expressions.",
+        "Keep them small and reusable."
+      ],
+      "commonMistakes": [
+        "Calling them before declaration."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const greet = function(){\n  console.log('Hello');\n};"
+      },
+      "interviewTip": "Explain hoisting differences."
+    },
+    {
+      "id": "js-017",
+      "title": "What are arrow functions?",
+      "difficulty": "intermediate",
+      "tags": [
+        "arrow-functions",
+        "es6"
+      ],
+      "shortAnswer": "Arrow functions provide a shorter syntax and inherit this from their surrounding scope.",
+      "detailedExplanation": "Arrow functions do not have their own this, arguments, super, or new.target. They are commonly used for callbacks and functional programming.",
+      "realWorldExample": "Array methods like map(), filter(), and reduce() frequently use arrow functions.",
+      "bestPractices": [
+        "Use arrow functions for callbacks.",
+        "Avoid them as object methods."
+      ],
+      "commonMistakes": [
+        "Using arrow functions where this should refer to the object."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const add = (a, b) => a + b;\nconsole.log(add(2, 3));"
+      },
+      "interviewTip": "Mention lexical this."
+    },
+    {
+      "id": "js-018",
+      "title": "What are default parameters?",
+      "difficulty": "beginner",
+      "tags": [
+        "functions",
+        "parameters",
+        "es6"
+      ],
+      "shortAnswer": "Default parameters allow function parameters to have predefined values.",
+      "detailedExplanation": "If an argument is omitted or undefined, JavaScript uses the default value specified in the function definition.",
+      "realWorldExample": "Providing a default page size for paginated API requests.",
+      "bestPractices": [
+        "Use sensible default values.",
+        "Avoid complex expressions as defaults."
+      ],
+      "commonMistakes": [
+        "Passing null expecting the default value."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "function greet(name = 'Guest') {\n  console.log(`Hello ${name}`);\n}\ngreet();"
+      },
+      "interviewTip": "Only undefined triggers the default parameter."
+    },
+    {
+      "id": "js-019",
+      "title": "What are rest parameters?",
+      "difficulty": "intermediate",
+      "tags": [
+        "rest",
+        "functions",
+        "es6"
+      ],
+      "shortAnswer": "Rest parameters collect multiple function arguments into an array.",
+      "detailedExplanation": "Using ... before the parameter gathers remaining arguments into a real array, making it easier to process variable numbers of arguments.",
+      "realWorldExample": "Creating utility functions like sum() that accept any number of values.",
+      "bestPractices": [
+        "Use rest instead of arguments.",
+        "Keep rest as the last parameter."
+      ],
+      "commonMistakes": [
+        "Placing rest parameters anywhere except the end."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "function sum(...nums){\n  return nums.reduce((a,b)=>a+b,0);\n}\nconsole.log(sum(1,2,3));"
+      },
+      "interviewTip": "Differentiate rest parameters from the spread operator."
+    },
+    {
+      "id": "js-020",
+      "title": "What is the spread operator?",
+      "difficulty": "intermediate",
+      "tags": [
+        "spread",
+        "arrays",
+        "objects",
+        "es6"
+      ],
+      "shortAnswer": "The spread operator (...) expands iterable values or object properties into individual elements.",
+      "detailedExplanation": "Spread syntax simplifies copying arrays, merging objects, passing function arguments, and creating immutable updates without modifying the original data.",
+      "realWorldExample": "Updating React state by copying the existing object and overriding only the changed fields.",
+      "bestPractices": [
+        "Use spread for shallow copies.",
+        "Remember that nested objects are still shared."
+      ],
+      "commonMistakes": [
+        "Assuming spread performs a deep copy."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const arr1 = [1,2];\nconst arr2 = [...arr1,3,4];\nconsole.log(arr2);"
+      },
+      "interviewTip": "Interviewers often ask you to compare spread and rest operators."
+    },
+    {
+      "id": "js-021",
+      "title": "What is a closure in JavaScript?",
+      "difficulty": "advanced",
+      "tags": [
+        "closures",
+        "scope",
+        "functions"
+      ],
+      "shortAnswer": "A closure is created when an inner function remembers and accesses variables from its outer lexical scope even after the outer function has finished executing.",
+      "detailedExplanation": "Closures are formed whenever a function is created inside another function. The inner function retains access to variables from its parent scope because JavaScript preserves the lexical environment. Closures are commonly used for data privacy, callbacks, memoization, and function factories.",
+      "realWorldExample": "A counter function can keep its count variable private while exposing only increment and decrement methods.",
+      "bestPractices": [
+        "Use closures for encapsulation.",
+        "Avoid unnecessary closures that retain large objects in memory.",
+        "Understand lexical scope before using closures."
+      ],
+      "commonMistakes": [
+        "Assuming outer variables are destroyed immediately.",
+        "Creating memory leaks by retaining unused references."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "function counter(){\n  let count = 0;\n  return function(){\n    return ++count;\n  };\n}\nconst increment = counter();\nconsole.log(increment());\nconsole.log(increment());"
+      },
+      "interviewTip": "Closures are among the most frequently asked JavaScript interview topics. Explain lexical scope first."
+    },
+    {
+      "id": "js-022",
+      "title": "What is lexical scope?",
+      "difficulty": "intermediate",
+      "tags": [
+        "scope",
+        "closures",
+        "lexical-scope"
+      ],
+      "shortAnswer": "Lexical scope means a function can access variables defined in its own scope and its parent scopes based on where it was declared.",
+      "detailedExplanation": "JavaScript determines variable accessibility using lexical scoping. Scope is established during code writing, not during execution. This behavior enables closures.",
+      "realWorldExample": "Nested helper functions can access configuration values declared in the parent function.",
+      "bestPractices": [
+        "Keep scopes small and organized.",
+        "Avoid unnecessary global variables."
+      ],
+      "commonMistakes": [
+        "Confusing lexical scope with execution order."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const language = 'JavaScript';\nfunction outer(){\n  function inner(){\n    console.log(language);\n  }\n  inner();\n}\nouter();"
+      },
+      "interviewTip": "Lexical scope is the foundation of closures."
+    },
+    {
+      "id": "js-023",
+      "title": "What is the 'this' keyword in JavaScript?",
+      "difficulty": "advanced",
+      "tags": [
+        "this",
+        "objects",
+        "functions"
+      ],
+      "shortAnswer": "The value of this depends on how a function is called, not where it is defined.",
+      "detailedExplanation": "In regular functions, this is determined by the calling object. In arrow functions, this is inherited lexically from the surrounding scope. In constructors, this refers to the newly created instance.",
+      "realWorldExample": "Object methods use this to access the object's properties.",
+      "bestPractices": [
+        "Use arrow functions for callbacks.",
+        "Avoid arrow functions as object methods."
+      ],
+      "commonMistakes": [
+        "Expecting arrow functions to have their own this.",
+        "Losing this inside callbacks."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const person = {\n  name: 'Mohit',\n  greet(){\n    console.log(this.name);\n  }\n};\nperson.greet();"
+      },
+      "interviewTip": "Always explain how this behaves in regular functions versus arrow functions."
+    },
+    {
+      "id": "js-024",
+      "title": "What is the difference between call(), apply(), and bind()?",
+      "difficulty": "advanced",
+      "tags": [
+        "call",
+        "apply",
+        "bind",
+        "this"
+      ],
+      "shortAnswer": "call() invokes a function immediately with individual arguments, apply() invokes immediately with an array of arguments, and bind() returns a new function with a bound this value.",
+      "detailedExplanation": "All three methods allow explicit control over the this context. call() and apply() execute immediately, whereas bind() creates a reusable function without invoking it.",
+      "realWorldExample": "Binding event handler methods to class instances prevents losing this.",
+      "bestPractices": [
+        "Use bind for reusable callbacks.",
+        "Prefer call when arguments are already separate.",
+        "Use apply when arguments are stored in an array."
+      ],
+      "commonMistakes": [
+        "Expecting bind() to execute immediately."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "function greet(city){\n  console.log(`${this.name} from ${city}`);\n}\nconst user = { name: 'Mohit' };\ngreet.call(user, 'Mumbai');"
+      },
+      "interviewTip": "Interviewers often ask for practical differences rather than definitions."
+    },
+    {
+      "id": "js-025",
+      "title": "What is an object in JavaScript?",
+      "difficulty": "beginner",
+      "tags": [
+        "objects",
+        "basics"
+      ],
+      "shortAnswer": "An object is a collection of key-value pairs used to store related data and behavior.",
+      "detailedExplanation": "Objects are reference types that can contain properties and methods. They are the foundation of object-oriented programming in JavaScript.",
+      "realWorldExample": "A user object can store name, email, age, and login methods.",
+      "bestPractices": [
+        "Use descriptive property names.",
+        "Group related data together."
+      ],
+      "commonMistakes": [
+        "Comparing objects using === expecting equal content."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const user = {\n  name: 'Mohit',\n  age: 25\n};\nconsole.log(user.name);"
+      },
+      "interviewTip": "Mention that objects are reference types."
+    },
+    {
+      "id": "js-026",
+      "title": "What is the difference between primitive and reference data types?",
+      "difficulty": "intermediate",
+      "tags": [
+        "objects",
+        "memory",
+        "references"
+      ],
+      "shortAnswer": "Primitive values are copied by value, whereas objects and arrays are copied by reference.",
+      "detailedExplanation": "Assigning a primitive creates an independent copy. Assigning an object copies its reference, so both variables point to the same memory location.",
+      "realWorldExample": "Updating one object reference affects every variable pointing to it.",
+      "bestPractices": [
+        "Use spread or structuredClone() when copying objects.",
+        "Understand shallow versus deep copying."
+      ],
+      "commonMistakes": [
+        "Assuming object assignment creates a new object."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const a = { value: 1 };\nconst b = a;\nb.value = 2;\nconsole.log(a.value);"
+      },
+      "interviewTip": "Memory behavior is commonly tested in interviews."
+    },
+    {
+      "id": "js-027",
+      "title": "How do you copy an object?",
+      "difficulty": "intermediate",
+      "tags": [
+        "objects",
+        "spread",
+        "copy"
+      ],
+      "shortAnswer": "Objects can be copied using the spread operator, Object.assign(), or structuredClone() for deep cloning of supported values.",
+      "detailedExplanation": "Spread and Object.assign() create shallow copies. Nested objects remain shared. structuredClone() performs a deep copy for many built-in data types.",
+      "realWorldExample": "Updating React state without mutating the original object.",
+      "bestPractices": [
+        "Avoid mutating shared objects.",
+        "Use deep cloning only when necessary."
+      ],
+      "commonMistakes": [
+        "Assuming spread creates a deep copy."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const user = { name: 'Mohit' };\nconst copy = { ...user };\nconsole.log(copy);"
+      },
+      "interviewTip": "Differentiate shallow copy from deep copy."
+    },
+    {
+      "id": "js-028",
+      "title": "What is an array in JavaScript?",
+      "difficulty": "beginner",
+      "tags": [
+        "arrays",
+        "basics"
+      ],
+      "shortAnswer": "An array is an ordered collection of values stored using numeric indexes.",
+      "detailedExplanation": "Arrays can contain values of any type and provide many built-in methods for manipulation, searching, filtering, and transformation.",
+      "realWorldExample": "Displaying a list of products retrieved from an API.",
+      "bestPractices": [
+        "Use array methods instead of manual loops where appropriate.",
+        "Avoid mutating arrays unnecessarily."
+      ],
+      "commonMistakes": [
+        "Using delete to remove array elements."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const fruits = ['Apple', 'Banana', 'Orange'];\nconsole.log(fruits[1]);"
+      },
+      "interviewTip": "Mention that arrays are specialized objects."
+    },
+    {
+      "id": "js-029",
+      "title": "What is the difference between map() and forEach()?",
+      "difficulty": "intermediate",
+      "tags": [
+        "arrays",
+        "map",
+        "foreach"
+      ],
+      "shortAnswer": "map() returns a new array, whereas forEach() executes a function for each element without returning a transformed array.",
+      "detailedExplanation": "Use map() when transforming data and forEach() for side effects such as logging or updating external state.",
+      "realWorldExample": "Converting product prices into formatted currency strings.",
+      "bestPractices": [
+        "Use map() for transformations.",
+        "Use forEach() for side effects only."
+      ],
+      "commonMistakes": [
+        "Expecting forEach() to return a new array."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const nums = [1,2,3];\nconst doubled = nums.map(n => n * 2);\nconsole.log(doubled);"
+      },
+      "interviewTip": "Interviewers frequently compare these two methods."
+    },
+    {
+      "id": "js-030",
+      "title": "What is the difference between filter() and find()?",
+      "difficulty": "intermediate",
+      "tags": [
+        "arrays",
+        "filter",
+        "find"
+      ],
+      "shortAnswer": "filter() returns all matching elements as an array, while find() returns only the first matching element.",
+      "detailedExplanation": "filter() always returns an array, even if it's empty. find() returns the first matching value or undefined if no match exists.",
+      "realWorldExample": "Finding a user by ID versus retrieving all active users.",
+      "bestPractices": [
+        "Use find() when only one result is expected.",
+        "Use filter() when multiple results may exist."
+      ],
+      "commonMistakes": [
+        "Expecting find() to return an array."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const users = [{id:1},{id:2}];\nconst user = users.find(u => u.id === 2);\nconsole.log(user);"
+      },
+      "interviewTip": "Clearly explain the return type difference."
+    },
+    {
+      "id": "js-031",
+      "title": "What is synchronous programming in JavaScript?",
+      "difficulty": "beginner",
+      "tags": [
+        "synchronous",
+        "execution",
+        "basics"
+      ],
+      "shortAnswer": "Synchronous programming executes code one statement at a time, where each operation must complete before the next one starts.",
+      "detailedExplanation": "JavaScript executes synchronous code using a single call stack. If one operation takes a long time, the entire application waits until it finishes, which can block the UI in browsers.",
+      "realWorldExample": "A large for loop performing millions of calculations blocks user interactions until it completes.",
+      "bestPractices": [
+        "Keep synchronous work short.",
+        "Move expensive work to asynchronous tasks or Web Workers."
+      ],
+      "commonMistakes": [
+        "Running CPU-intensive operations on the main thread."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "console.log('Start');\nconsole.log('Processing...');\nconsole.log('End');"
+      },
+      "interviewTip": "Mention that JavaScript executes synchronous code on a single call stack."
+    },
+    {
+      "id": "js-032",
+      "title": "What is asynchronous programming?",
+      "difficulty": "beginner",
+      "tags": [
+        "async",
+        "callbacks",
+        "promises"
+      ],
+      "shortAnswer": "Asynchronous programming allows JavaScript to perform long-running tasks without blocking the main thread.",
+      "detailedExplanation": "Instead of waiting for operations like API requests or timers to finish, JavaScript continues executing other code and processes the result later using callbacks, Promises, or async/await.",
+      "realWorldExample": "Fetching product data from an API while the user continues interacting with the page.",
+      "bestPractices": [
+        "Prefer async/await for readability.",
+        "Always handle errors."
+      ],
+      "commonMistakes": [
+        "Assuming asynchronous code executes immediately."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "console.log('Start');\nsetTimeout(() => console.log('Async Task'), 1000);\nconsole.log('End');"
+      },
+      "interviewTip": "Explain why asynchronous programming improves responsiveness."
+    },
+    {
+      "id": "js-033",
+      "title": "What is a callback function?",
+      "difficulty": "beginner",
+      "tags": [
+        "callbacks",
+        "functions",
+        "async"
+      ],
+      "shortAnswer": "A callback is a function passed as an argument to another function that executes later.",
+      "detailedExplanation": "Callbacks were the original approach for asynchronous programming in JavaScript. They are still commonly used in event handlers and some APIs.",
+      "realWorldExample": "Executing code after a file has finished loading.",
+      "bestPractices": [
+        "Keep callbacks small.",
+        "Prefer Promises for complex async flows."
+      ],
+      "commonMistakes": [
+        "Creating deeply nested callback chains."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "function greet(callback){\n  console.log('Hello');\n  callback();\n}\ngreet(() => console.log('Welcome'));"
+      },
+      "interviewTip": "Mention callback hell as a limitation."
+    },
+    {
+      "id": "js-034",
+      "title": "What is callback hell?",
+      "difficulty": "intermediate",
+      "tags": [
+        "callbacks",
+        "async",
+        "callback-hell"
+      ],
+      "shortAnswer": "Callback hell occurs when multiple nested callbacks make code difficult to read and maintain.",
+      "detailedExplanation": "Deeply nested callbacks reduce readability and complicate error handling. Promises and async/await were introduced to solve this problem.",
+      "realWorldExample": "Making multiple dependent API requests using nested callbacks.",
+      "bestPractices": [
+        "Use Promises.",
+        "Use async/await."
+      ],
+      "commonMistakes": [
+        "Deep callback nesting."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "login(() => {\n  getUser(() => {\n    getOrders(() => {\n      console.log('Done');\n    });\n  });\n});"
+      },
+      "interviewTip": "Explain how Promises improve callback hell."
+    },
+    {
+      "id": "js-035",
+      "title": "What is a Promise?",
+      "difficulty": "intermediate",
+      "tags": [
+        "promises",
+        "async"
+      ],
+      "shortAnswer": "A Promise represents the eventual completion or failure of an asynchronous operation.",
+      "detailedExplanation": "A Promise has three states: pending, fulfilled, and rejected. It allows chaining asynchronous operations using then(), catch(), and finally().",
+      "realWorldExample": "Fetching data from a REST API.",
+      "bestPractices": [
+        "Return Promises from asynchronous functions.",
+        "Handle rejected Promises."
+      ],
+      "commonMistakes": [
+        "Forgetting to return a Promise in chains."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "fetch('/api/users')\n  .then(res => res.json())\n  .then(data => console.log(data));"
+      },
+      "interviewTip": "Explain Promise states before discussing methods."
+    },
+    {
+      "id": "js-036",
+      "title": "What are Promise states?",
+      "difficulty": "intermediate",
+      "tags": [
+        "promise",
+        "states"
+      ],
+      "shortAnswer": "A Promise can be pending, fulfilled, or rejected.",
+      "detailedExplanation": "Pending means the operation is still running. Fulfilled means it completed successfully. Rejected means an error occurred.",
+      "realWorldExample": "An API request starts as pending, becomes fulfilled when data arrives, or rejected if the server returns an error.",
+      "bestPractices": [
+        "Always handle rejected Promises."
+      ],
+      "commonMistakes": [
+        "Ignoring rejection handling."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const promise = Promise.resolve('Success');\npromise.then(console.log);"
+      },
+      "interviewTip": "Remember all three Promise states."
+    },
+    {
+      "id": "js-037",
+      "title": "What is async/await?",
+      "difficulty": "intermediate",
+      "tags": [
+        "async-await",
+        "promises"
+      ],
+      "shortAnswer": "async/await is syntactic sugar over Promises that makes asynchronous code easier to read and write.",
+      "detailedExplanation": "An async function always returns a Promise. The await keyword pauses execution inside the async function until the awaited Promise settles.",
+      "realWorldExample": "Sequentially calling multiple APIs while keeping the code readable.",
+      "bestPractices": [
+        "Use try...catch for error handling.",
+        "Await only when necessary."
+      ],
+      "commonMistakes": [
+        "Using await outside async functions."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "async function load(){\n  const res = await fetch('/api/users');\n  const data = await res.json();\n  console.log(data);\n}"
+      },
+      "interviewTip": "Mention that async functions always return Promises."
+    },
+    {
+      "id": "js-038",
+      "title": "How do you handle errors in async/await?",
+      "difficulty": "intermediate",
+      "tags": [
+        "async-await",
+        "error-handling"
+      ],
+      "shortAnswer": "Use try...catch blocks around awaited operations.",
+      "detailedExplanation": "Errors thrown inside async functions reject the returned Promise. Wrapping await calls in try...catch allows graceful error handling.",
+      "realWorldExample": "Displaying an error message when an API request fails.",
+      "bestPractices": [
+        "Handle errors close to where they occur.",
+        "Provide meaningful error messages."
+      ],
+      "commonMistakes": [
+        "Ignoring Promise rejections."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "async function load(){\n  try{\n    const res = await fetch('/api');\n    console.log(await res.json());\n  }catch(err){\n    console.error(err);\n  }\n}"
+      },
+      "interviewTip": "Compare try...catch with Promise.catch()."
+    },
+    {
+      "id": "js-039",
+      "title": "What is Promise.all()?",
+      "difficulty": "advanced",
+      "tags": [
+        "promise",
+        "promise-all"
+      ],
+      "shortAnswer": "Promise.all() waits for all Promises to resolve or rejects immediately if any Promise rejects.",
+      "detailedExplanation": "It runs asynchronous operations concurrently and returns an array of results in the same order as the input Promises.",
+      "realWorldExample": "Loading users, products, and orders simultaneously.",
+      "bestPractices": [
+        "Use independent requests together.",
+        "Handle failures appropriately."
+      ],
+      "commonMistakes": [
+        "Expecting partial results after a rejection."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "Promise.all([\n  fetch('/users'),\n  fetch('/products')\n]).then(console.log);"
+      },
+      "interviewTip": "Mention that one rejection rejects the entire Promise.all()."
+    },
+    {
+      "id": "js-040",
+      "title": "Explain the JavaScript event loop.",
+      "difficulty": "advanced",
+      "tags": [
+        "event-loop",
+        "async",
+        "microtasks",
+        "macrotasks"
+      ],
+      "shortAnswer": "JavaScript uses an event loop to execute synchronous code first, then microtasks, and finally macrotasks when the call stack is empty.",
+      "detailedExplanation": "The event loop continuously checks whether the call stack is empty. After synchronous execution completes, all queued microtasks (such as Promise callbacks) are processed before the next macrotask (such as setTimeout). This scheduling keeps asynchronous operations efficient while maintaining predictable execution order.",
+      "realWorldExample": "A Promise callback executes before a setTimeout callback with a delay of 0 milliseconds.",
+      "bestPractices": [
+        "Avoid blocking the main thread.",
+        "Understand microtask versus macrotask execution order."
+      ],
+      "commonMistakes": [
+        "Assuming setTimeout(fn, 0) executes immediately.",
+        "Ignoring the priority of the microtask queue."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "console.log('Start');\nsetTimeout(() => console.log('Timeout'));\nPromise.resolve().then(() => console.log('Promise'));\nconsole.log('End');\n// Start\n// End\n// Promise\n// Timeout"
+      },
+      "interviewTip": "Always mention the call stack, Web APIs, microtask queue, macrotask queue, and event loop together."
+    },
+    {
+      "id": "js-041",
+      "title": "What is the JavaScript execution context?",
+      "difficulty": "advanced",
+      "tags": [
+        "execution-context",
+        "call-stack",
+        "hoisting"
+      ],
+      "shortAnswer": "An execution context is the environment in which JavaScript code is evaluated and executed.",
+      "detailedExplanation": "Every time JavaScript executes code, it creates an execution context. There are three types: Global Execution Context, Function Execution Context, and Eval Execution Context. During the creation phase, memory is allocated for variables and functions. During the execution phase, code runs line by line.",
+      "realWorldExample": "Every function call creates a new execution context that is pushed onto the call stack.",
+      "bestPractices": [
+        "Understand the creation and execution phases.",
+        "Avoid unnecessary global variables."
+      ],
+      "commonMistakes": [
+        "Confusing execution context with scope."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "function greet(){\n  console.log('Hello');\n}\ngreet();"
+      },
+      "interviewTip": "Explain the memory creation phase before discussing hoisting."
+    },
+    {
+      "id": "js-042",
+      "title": "What is the JavaScript call stack?",
+      "difficulty": "advanced",
+      "tags": [
+        "call-stack",
+        "execution"
+      ],
+      "shortAnswer": "The call stack is a LIFO data structure that tracks active function execution.",
+      "detailedExplanation": "Whenever a function is invoked, it is pushed onto the call stack. When it finishes execution, it is popped off. JavaScript uses a single call stack to execute synchronous code.",
+      "realWorldExample": "Nested function calls create multiple stack frames until execution completes.",
+      "bestPractices": [
+        "Keep recursion under control.",
+        "Avoid deep synchronous call chains."
+      ],
+      "commonMistakes": [
+        "Ignoring stack overflow caused by infinite recursion."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "function one(){ two(); }\nfunction two(){ console.log('Done'); }\none();"
+      },
+      "interviewTip": "Mention that JavaScript is single-threaded and uses one call stack."
+    },
+    {
+      "id": "js-043",
+      "title": "What is recursion?",
+      "difficulty": "intermediate",
+      "tags": [
+        "recursion",
+        "functions"
+      ],
+      "shortAnswer": "Recursion is a technique where a function calls itself until a base condition is met.",
+      "detailedExplanation": "Each recursive call creates a new execution context. Without a terminating condition, recursion continues until a stack overflow occurs.",
+      "realWorldExample": "Traversing nested folder structures or tree-like data.",
+      "bestPractices": [
+        "Always define a base case.",
+        "Prefer iteration when recursion becomes too deep."
+      ],
+      "commonMistakes": [
+        "Forgetting the base condition."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "function factorial(n){\n  if(n === 1) return 1;\n  return n * factorial(n - 1);\n}\nconsole.log(factorial(5));"
+      },
+      "interviewTip": "Explain both the recursive case and the base case."
+    },
+    {
+      "id": "js-044",
+      "title": "What is strict mode in JavaScript?",
+      "difficulty": "intermediate",
+      "tags": [
+        "strict-mode",
+        "es5"
+      ],
+      "shortAnswer": "Strict mode enables a restricted variant of JavaScript that catches common coding mistakes and prevents unsafe behavior.",
+      "detailedExplanation": "Strict mode changes certain language semantics, such as disallowing accidental global variables and duplicate parameter names, making code more predictable.",
+      "realWorldExample": "Large codebases use strict mode to catch bugs during development.",
+      "bestPractices": [
+        "Use strict mode or ES modules.",
+        "Fix warnings instead of disabling them."
+      ],
+      "commonMistakes": [
+        "Creating variables without declarations."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "'use strict';\nlet name = 'Mohit';"
+      },
+      "interviewTip": "Mention that ES modules are automatically in strict mode."
+    },
+    {
+      "id": "js-045",
+      "title": "What is the difference between shallow copy and deep copy?",
+      "difficulty": "advanced",
+      "tags": [
+        "copy",
+        "objects",
+        "memory"
+      ],
+      "shortAnswer": "A shallow copy copies only the first level, while a deep copy duplicates nested objects as well.",
+      "detailedExplanation": "Spread syntax and Object.assign() create shallow copies. Nested references remain shared. Deep copies create independent nested structures using techniques such as structuredClone().",
+      "realWorldExample": "Updating nested state objects in a React application.",
+      "bestPractices": [
+        "Use shallow copies for immutable updates.",
+        "Deep clone only when necessary."
+      ],
+      "commonMistakes": [
+        "Expecting spread syntax to deep copy nested objects."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const user = { profile: { age: 25 } };\nconst copy = { ...user };\ncopy.profile.age = 30;\nconsole.log(user.profile.age);"
+      },
+      "interviewTip": "Interviewers often ask why spread is not a deep copy."
+    },
+    {
+      "id": "js-046",
+      "title": "What is garbage collection?",
+      "difficulty": "advanced",
+      "tags": [
+        "memory",
+        "garbage-collection"
+      ],
+      "shortAnswer": "Garbage collection automatically frees memory occupied by objects that are no longer reachable.",
+      "detailedExplanation": "JavaScript engines use algorithms like mark-and-sweep to identify unreachable objects and reclaim their memory, reducing memory leaks.",
+      "realWorldExample": "Objects created inside a function become eligible for garbage collection after execution if no references remain.",
+      "bestPractices": [
+        "Remove unused references.",
+        "Avoid unnecessary global variables."
+      ],
+      "commonMistakes": [
+        "Holding references longer than needed."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "let obj = { name: 'JS' };\nobj = null;"
+      },
+      "interviewTip": "Mention reachability instead of manual memory deallocation."
+    },
+    {
+      "id": "js-047",
+      "title": "What is a memory leak?",
+      "difficulty": "advanced",
+      "tags": [
+        "memory",
+        "performance"
+      ],
+      "shortAnswer": "A memory leak occurs when objects remain referenced even though they are no longer needed.",
+      "detailedExplanation": "Memory leaks increase memory usage over time and can degrade application performance. Common causes include forgotten timers, event listeners, and closures retaining large objects.",
+      "realWorldExample": "Removing a DOM element without removing its event listeners.",
+      "bestPractices": [
+        "Clean up event listeners.",
+        "Clear timers.",
+        "Release unused references."
+      ],
+      "commonMistakes": [
+        "Ignoring cleanup in long-running applications."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const id = setInterval(() => console.log('Running'), 1000);\nclearInterval(id);"
+      },
+      "interviewTip": "Give practical examples like event listeners and intervals."
+    },
+    {
+      "id": "js-048",
+      "title": "What is optional chaining?",
+      "difficulty": "intermediate",
+      "tags": [
+        "optional-chaining",
+        "es2020"
+      ],
+      "shortAnswer": "Optional chaining (?.) safely accesses nested properties without throwing an error if a value is null or undefined.",
+      "detailedExplanation": "When any part of the chain evaluates to null or undefined, JavaScript stops evaluating and returns undefined instead of throwing a TypeError.",
+      "realWorldExample": "Reading nested API response properties safely.",
+      "bestPractices": [
+        "Use optional chaining for uncertain object structures.",
+        "Combine with nullish coalescing when needed."
+      ],
+      "commonMistakes": [
+        "Using optional chaining where validation is still required."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const user = {};\nconsole.log(user.profile?.email);"
+      },
+      "interviewTip": "Mention that optional chaining prevents runtime errors."
+    },
+    {
+      "id": "js-049",
+      "title": "What is the nullish coalescing operator (??)?",
+      "difficulty": "intermediate",
+      "tags": [
+        "nullish",
+        "operators",
+        "es2020"
+      ],
+      "shortAnswer": "The nullish coalescing operator returns the right-hand value only when the left-hand value is null or undefined.",
+      "detailedExplanation": "Unlike the logical OR operator (||), the nullish coalescing operator preserves valid falsy values such as 0, false, and an empty string.",
+      "realWorldExample": "Providing default values while allowing 0 as a valid input.",
+      "bestPractices": [
+        "Use ?? instead of || when falsy values are valid."
+      ],
+      "commonMistakes": [
+        "Replacing every || with ?? without understanding the difference."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const count = 0;\nconsole.log(count ?? 10);"
+      },
+      "interviewTip": "Compare ?? with || during interviews."
+    },
+    {
+      "id": "js-050",
+      "title": "What are template literals?",
+      "difficulty": "beginner",
+      "tags": [
+        "template-literals",
+        "strings",
+        "es6"
+      ],
+      "shortAnswer": "Template literals use backticks to create strings with interpolation and multiline support.",
+      "detailedExplanation": "Template literals allow embedding expressions using ${} and make complex string construction cleaner and more readable than string concatenation.",
+      "realWorldExample": "Generating dynamic HTML or formatted log messages.",
+      "bestPractices": [
+        "Prefer template literals over string concatenation.",
+        "Use interpolation for readability."
+      ],
+      "commonMistakes": [
+        "Using single quotes instead of backticks."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const name = 'Mohit';\nconsole.log(`Hello ${name}`);"
+      },
+      "interviewTip": "Mention multiline strings and expression interpolation."
+    },
+    {
+      "id": "js-051",
+      "title": "What is prototypal inheritance in JavaScript?",
+      "difficulty": "advanced",
+      "tags": [
+        "prototype",
+        "inheritance",
+        "objects"
+      ],
+      "shortAnswer": "Prototypal inheritance allows objects to inherit properties and methods from other objects through the prototype chain.",
+      "detailedExplanation": "Every JavaScript object has an internal reference to another object called its prototype. When a property or method isn't found on the object itself, JavaScript searches its prototype chain until it finds the property or reaches null.",
+      "realWorldExample": "Array objects inherit methods like map(), filter(), and reduce() from Array.prototype.",
+      "bestPractices": [
+        "Prefer ES6 classes for readability.",
+        "Understand that classes are built on prototypes.",
+        "Avoid modifying built-in prototypes."
+      ],
+      "commonMistakes": [
+        "Confusing prototype with __proto__.",
+        "Modifying native prototypes in production code."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "function Person(name){\n  this.name = name;\n}\nPerson.prototype.greet = function(){\n  console.log(`Hello ${this.name}`);\n};\nconst user = new Person('Mohit');\nuser.greet();"
+      },
+      "interviewTip": "Always explain the prototype chain before discussing inheritance."
+    },
+    {
+      "id": "js-052",
+      "title": "What is the prototype chain?",
+      "difficulty": "advanced",
+      "tags": [
+        "prototype",
+        "inheritance"
+      ],
+      "shortAnswer": "The prototype chain is JavaScript's mechanism for looking up properties through linked prototype objects.",
+      "detailedExplanation": "If a property isn't found on an object, JavaScript searches its prototype, then that prototype's prototype, continuing until Object.prototype or null is reached.",
+      "realWorldExample": "Calling toString() on an array works because the method exists higher in the prototype chain.",
+      "bestPractices": [
+        "Understand prototype lookup order.",
+        "Avoid unnecessary prototype modifications."
+      ],
+      "commonMistakes": [
+        "Assuming inherited properties belong directly to the object."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const arr = [1,2,3];\nconsole.log(arr.toString());"
+      },
+      "interviewTip": "Explain property lookup from object to Object.prototype."
+    },
+    {
+      "id": "js-053",
+      "title": "What are ES6 classes?",
+      "difficulty": "intermediate",
+      "tags": [
+        "classes",
+        "es6",
+        "oop"
+      ],
+      "shortAnswer": "ES6 classes provide cleaner syntax for creating constructor functions and prototype-based inheritance.",
+      "detailedExplanation": "Classes simplify object-oriented programming but are syntactic sugar over JavaScript's prototype system. They support constructors, inheritance, getters, setters, and static methods.",
+      "realWorldExample": "Creating reusable User, Product, or Order models in an application.",
+      "bestPractices": [
+        "Keep classes focused on one responsibility.",
+        "Use inheritance only when appropriate."
+      ],
+      "commonMistakes": [
+        "Thinking classes introduce classical inheritance."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "class User {\n  constructor(name){\n    this.name = name;\n  }\n}\nconst user = new User('Mohit');"
+      },
+      "interviewTip": "Mention that classes are syntactic sugar over prototypes."
+    },
+    {
+      "id": "js-054",
+      "title": "What is inheritance in JavaScript?",
+      "difficulty": "intermediate",
+      "tags": [
+        "inheritance",
+        "classes"
+      ],
+      "shortAnswer": "Inheritance allows one class or object to reuse the properties and methods of another.",
+      "detailedExplanation": "Using the extends keyword, a child class inherits behavior from its parent while adding or overriding functionality.",
+      "realWorldExample": "An Admin class extending a User class.",
+      "bestPractices": [
+        "Prefer composition over deep inheritance hierarchies.",
+        "Reuse common functionality."
+      ],
+      "commonMistakes": [
+        "Overusing inheritance."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "class Animal {\n  speak(){\n    console.log('Sound');\n  }\n}\nclass Dog extends Animal {}\nnew Dog().speak();"
+      },
+      "interviewTip": "Explain extends and super."
+    },
+    {
+      "id": "js-055",
+      "title": "What is encapsulation?",
+      "difficulty": "intermediate",
+      "tags": [
+        "oop",
+        "encapsulation"
+      ],
+      "shortAnswer": "Encapsulation bundles data and methods together while restricting direct access to internal implementation.",
+      "detailedExplanation": "JavaScript supports encapsulation through closures and private class fields (#). This protects internal state from unintended modification.",
+      "realWorldExample": "A BankAccount class exposing deposit() but hiding balance updates.",
+      "bestPractices": [
+        "Hide implementation details.",
+        "Expose only required APIs."
+      ],
+      "commonMistakes": [
+        "Making every property public."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "class Counter {\n  #count = 0;\n  increment(){\n    this.#count++;\n  }\n}"
+      },
+      "interviewTip": "Mention private class fields introduced in modern JavaScript."
+    },
+    {
+      "id": "js-056",
+      "title": "What is polymorphism?",
+      "difficulty": "advanced",
+      "tags": [
+        "oop",
+        "polymorphism"
+      ],
+      "shortAnswer": "Polymorphism allows different objects to implement the same method in different ways.",
+      "detailedExplanation": "Child classes can override inherited methods, enabling the same interface to produce different behavior depending on the object.",
+      "realWorldExample": "Different payment classes implementing processPayment().",
+      "bestPractices": [
+        "Program against interfaces or shared behavior.",
+        "Override methods only when necessary."
+      ],
+      "commonMistakes": [
+        "Confusing polymorphism with overloading."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "class Animal {\n  speak(){ console.log('Animal'); }\n}\nclass Dog extends Animal {\n  speak(){ console.log('Bark'); }\n}\nnew Dog().speak();"
+      },
+      "interviewTip": "Explain method overriding with a practical example."
+    },
+    {
+      "id": "js-057",
+      "title": "What are static methods?",
+      "difficulty": "intermediate",
+      "tags": [
+        "classes",
+        "static"
+      ],
+      "shortAnswer": "Static methods belong to the class itself rather than its instances.",
+      "detailedExplanation": "They are called directly on the class and are commonly used for utility functions or factory methods.",
+      "realWorldExample": "Math.max() is a static method.",
+      "bestPractices": [
+        "Use static methods for helper functionality.",
+        "Avoid accessing instance data inside static methods."
+      ],
+      "commonMistakes": [
+        "Calling static methods on object instances."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "class MathUtil {\n  static square(n){\n    return n * n;\n  }\n}\nconsole.log(MathUtil.square(5));"
+      },
+      "interviewTip": "Static methods are invoked using the class name."
+    },
+    {
+      "id": "js-058",
+      "title": "What are getters and setters?",
+      "difficulty": "intermediate",
+      "tags": [
+        "getters",
+        "setters",
+        "objects"
+      ],
+      "shortAnswer": "Getters and setters provide controlled access to object properties.",
+      "detailedExplanation": "Getters retrieve computed values while setters validate or transform values before assignment.",
+      "realWorldExample": "Validating a user's age before storing it.",
+      "bestPractices": [
+        "Keep getters lightweight.",
+        "Validate data in setters."
+      ],
+      "commonMistakes": [
+        "Performing expensive operations inside getters."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "class User {\n  constructor(){\n    this._name = '';\n  }\n  get name(){ return this._name; }\n  set name(value){ this._name = value; }\n}"
+      },
+      "interviewTip": "Explain how getters and setters improve encapsulation."
+    },
+    {
+      "id": "js-059",
+      "title": "What is destructuring in JavaScript?",
+      "difficulty": "beginner",
+      "tags": [
+        "destructuring",
+        "es6"
+      ],
+      "shortAnswer": "Destructuring extracts values from arrays or properties from objects into variables.",
+      "detailedExplanation": "Destructuring simplifies assignments and improves code readability by unpacking values directly.",
+      "realWorldExample": "Extracting API response fields without repeatedly accessing object properties.",
+      "bestPractices": [
+        "Use descriptive variable names.",
+        "Provide default values when appropriate."
+      ],
+      "commonMistakes": [
+        "Destructuring undefined values."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const user = { name: 'Mohit', age: 25 };\nconst { name, age } = user;\nconsole.log(name, age);"
+      },
+      "interviewTip": "Demonstrate both object and array destructuring."
+    },
+    {
+      "id": "js-060",
+      "title": "What are modules in JavaScript?",
+      "difficulty": "intermediate",
+      "tags": [
+        "modules",
+        "import",
+        "export",
+        "es6"
+      ],
+      "shortAnswer": "Modules allow JavaScript code to be split into reusable files using import and export statements.",
+      "detailedExplanation": "ES Modules improve maintainability by organizing functionality into separate files with explicit dependencies. Each module has its own scope and is automatically executed in strict mode.",
+      "realWorldExample": "Separating authentication, API services, and utility functions into different files.",
+      "bestPractices": [
+        "Export only what's necessary.",
+        "Keep modules focused on a single responsibility.",
+        "Use named exports where appropriate."
+      ],
+      "commonMistakes": [
+        "Mixing default and named imports incorrectly.",
+        "Creating circular dependencies."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "// math.js\nexport function add(a, b){\n  return a + b;\n}\n\n// app.js\nimport { add } from './math.js';\nconsole.log(add(2, 3));"
+      },
+      "interviewTip": "Explain the difference between default exports and named exports."
+    },
+    {
+      "id": "js-061",
+      "title": "What is the spread operator (...) in JavaScript?",
+      "difficulty": "beginner",
+      "tags": [
+        "spread",
+        "es6",
+        "arrays",
+        "objects"
+      ],
+      "shortAnswer": "The spread operator expands iterable elements or object properties into individual values.",
+      "detailedExplanation": "The spread operator (...) copies or expands arrays, objects, and function arguments. It is commonly used for cloning, merging, and passing multiple arguments.",
+      "realWorldExample": "Creating a new array while preserving the original state in a React application.",
+      "bestPractices": [
+        "Use spread for immutable updates.",
+        "Remember that object and array spreads perform shallow copies."
+      ],
+      "commonMistakes": [
+        "Expecting spread to perform a deep copy."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const nums = [1, 2];\nconst all = [...nums, 3, 4];\nconsole.log(all);"
+      },
+      "interviewTip": "Explain the difference between spread syntax and rest parameters."
+    },
+    {
+      "id": "js-062",
+      "title": "What are rest parameters?",
+      "difficulty": "beginner",
+      "tags": [
+        "rest",
+        "functions",
+        "es6"
+      ],
+      "shortAnswer": "Rest parameters collect multiple function arguments into a single array.",
+      "detailedExplanation": "Using (...) before the final parameter allows a function to accept any number of arguments, replacing the older arguments object in many cases.",
+      "realWorldExample": "Building utility functions that accept a variable number of values.",
+      "bestPractices": [
+        "Place the rest parameter last.",
+        "Prefer rest parameters over the arguments object."
+      ],
+      "commonMistakes": [
+        "Using more than one rest parameter."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "function sum(...numbers){\n  return numbers.reduce((a,b)=>a+b,0);\n}\nconsole.log(sum(1,2,3));"
+      },
+      "interviewTip": "Clarify that rest collects values while spread expands them."
+    },
+    {
+      "id": "js-063",
+      "title": "What is Object.freeze()?",
+      "difficulty": "intermediate",
+      "tags": [
+        "object",
+        "freeze",
+        "immutability"
+      ],
+      "shortAnswer": "Object.freeze() prevents adding, removing, or modifying an object's properties.",
+      "detailedExplanation": "A frozen object becomes immutable at the top level. Nested objects remain mutable unless they are also frozen.",
+      "realWorldExample": "Protecting configuration objects from accidental modification.",
+      "bestPractices": [
+        "Freeze configuration constants.",
+        "Use deep freezing only when necessary."
+      ],
+      "commonMistakes": [
+        "Assuming Object.freeze() deeply freezes nested objects."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const config = Object.freeze({ app: 'Demo' });\nconfig.app = 'Test';\nconsole.log(config.app);"
+      },
+      "interviewTip": "Mention that freezing is shallow by default."
+    },
+    {
+      "id": "js-064",
+      "title": "What is Object.seal()?",
+      "difficulty": "intermediate",
+      "tags": [
+        "object",
+        "seal"
+      ],
+      "shortAnswer": "Object.seal() prevents adding or removing properties but allows modification of existing ones.",
+      "detailedExplanation": "A sealed object cannot have new properties added or existing ones deleted, but writable properties can still be updated.",
+      "realWorldExample": "Locking an object's structure while allowing value updates.",
+      "bestPractices": [
+        "Use sealing when object shape should remain constant."
+      ],
+      "commonMistakes": [
+        "Confusing Object.seal() with Object.freeze()."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const user = { name: 'Mohit' };\nObject.seal(user);\nuser.name = 'John';\nconsole.log(user.name);"
+      },
+      "interviewTip": "Compare Object.seal() with Object.freeze()."
+    },
+    {
+      "id": "js-065",
+      "title": "What is Object.assign()?",
+      "difficulty": "beginner",
+      "tags": [
+        "object",
+        "assign"
+      ],
+      "shortAnswer": "Object.assign() copies enumerable properties from one or more source objects to a target object.",
+      "detailedExplanation": "It is commonly used for merging objects or creating shallow copies.",
+      "realWorldExample": "Combining default configuration with user-provided options.",
+      "bestPractices": [
+        "Use for shallow merges.",
+        "Be aware of property overwrite order."
+      ],
+      "commonMistakes": [
+        "Expecting Object.assign() to deep clone objects."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const a = { x: 1 };\nconst b = { y: 2 };\nconst c = Object.assign({}, a, b);\nconsole.log(c);"
+      },
+      "interviewTip": "Mention that later objects overwrite earlier properties."
+    },
+    {
+      "id": "js-066",
+      "title": "What is the Reflect API?",
+      "difficulty": "advanced",
+      "tags": [
+        "reflect",
+        "meta-programming",
+        "es6"
+      ],
+      "shortAnswer": "The Reflect API provides methods for interceptable JavaScript operations in a functional form.",
+      "detailedExplanation": "Reflect methods correspond to many object operations such as getting, setting, deleting, and constructing objects. It is commonly used with Proxy.",
+      "realWorldExample": "Forwarding operations inside Proxy handlers.",
+      "bestPractices": [
+        "Use Reflect within Proxy traps.",
+        "Prefer Reflect methods over direct operations when implementing meta-programming."
+      ],
+      "commonMistakes": [
+        "Using Reflect when normal object operations are sufficient."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const obj = { name: 'JS' };\nconsole.log(Reflect.get(obj, 'name'));"
+      },
+      "interviewTip": "Explain how Reflect complements Proxy."
+    },
+    {
+      "id": "js-067",
+      "title": "What is a Proxy object?",
+      "difficulty": "advanced",
+      "tags": [
+        "proxy",
+        "meta-programming"
+      ],
+      "shortAnswer": "A Proxy intercepts and customizes operations performed on another object.",
+      "detailedExplanation": "A Proxy wraps a target object and allows custom behavior for property access, assignment, deletion, and more through handler traps.",
+      "realWorldExample": "Implementing validation or logging whenever object properties change.",
+      "bestPractices": [
+        "Keep proxy handlers simple.",
+        "Use Reflect to preserve default behavior."
+      ],
+      "commonMistakes": [
+        "Breaking object behavior by not forwarding operations correctly."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const user = new Proxy({}, {\n  set(target, key, value){\n    target[key] = value;\n    return true;\n  }\n});\nuser.name = 'Mohit';"
+      },
+      "interviewTip": "Show how Proxy and Reflect are often used together."
+    },
+    {
+      "id": "js-068",
+      "title": "What is Symbol in JavaScript?",
+      "difficulty": "advanced",
+      "tags": [
+        "symbol",
+        "primitive",
+        "es6"
+      ],
+      "shortAnswer": "Symbol is a primitive data type that creates unique and immutable identifiers.",
+      "detailedExplanation": "Every Symbol value is unique, making it useful for object property keys that should not collide with other keys.",
+      "realWorldExample": "Creating internal object properties without risking naming conflicts.",
+      "bestPractices": [
+        "Use Symbols for unique property keys.",
+        "Leverage well-known Symbols when customizing built-in behavior."
+      ],
+      "commonMistakes": [
+        "Expecting two Symbols with the same description to be equal."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const id = Symbol('id');\nconst user = { [id]: 101 };\nconsole.log(user[id]);"
+      },
+      "interviewTip": "Mention that Symbol is a primitive type."
+    },
+    {
+      "id": "js-069",
+      "title": "What is BigInt?",
+      "difficulty": "intermediate",
+      "tags": [
+        "bigint",
+        "numbers",
+        "es2020"
+      ],
+      "shortAnswer": "BigInt is a numeric primitive that represents integers larger than Number.MAX_SAFE_INTEGER.",
+      "detailedExplanation": "BigInt enables safe arithmetic on very large integers. It cannot be mixed directly with regular Number values without explicit conversion.",
+      "realWorldExample": "Working with very large database IDs or cryptographic values.",
+      "bestPractices": [
+        "Use BigInt only when large integer precision is required."
+      ],
+      "commonMistakes": [
+        "Mixing Number and BigInt in arithmetic operations."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const big = 9007199254740993n;\nconsole.log(big + 2n);"
+      },
+      "interviewTip": "Mention the 'n' suffix used to create BigInt literals."
+    },
+    {
+      "id": "js-070",
+      "title": "What is JSON in JavaScript?",
+      "difficulty": "beginner",
+      "tags": [
+        "json",
+        "serialization"
+      ],
+      "shortAnswer": "JSON (JavaScript Object Notation) is a lightweight text format for exchanging structured data.",
+      "detailedExplanation": "JavaScript provides JSON.parse() to convert JSON strings into objects and JSON.stringify() to convert objects into JSON strings for storage or transmission.",
+      "realWorldExample": "Sending request and response data between a frontend application and a REST API.",
+      "bestPractices": [
+        "Validate incoming JSON before using it.",
+        "Use JSON.stringify() for data transmission and storage."
+      ],
+      "commonMistakes": [
+        "Confusing JSON syntax with JavaScript object literals."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const json = '{\"name\":\"Mohit\"}';\nconst user = JSON.parse(json);\nconsole.log(JSON.stringify(user));"
+      },
+      "interviewTip": "Explain the difference between JSON.parse() and JSON.stringify()."
+    },
+    {
+      "id": "js-071",
+      "title": "What are Map objects in JavaScript?",
+      "difficulty": "intermediate",
+      "tags": [
+        "map",
+        "collections",
+        "es6"
+      ],
+      "shortAnswer": "A Map is a collection of key-value pairs where keys can be of any data type.",
+      "detailedExplanation": "Unlike regular objects, Map preserves insertion order and allows objects, functions, or primitive values as keys. It provides methods like set(), get(), has(), delete(), clear(), and size.",
+      "realWorldExample": "Caching API responses using object references as keys.",
+      "bestPractices": [
+        "Use Map when keys are dynamic or non-string values.",
+        "Prefer Map over plain objects for frequent insertions and deletions."
+      ],
+      "commonMistakes": [
+        "Using property notation instead of set() and get()."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const users = new Map();\nusers.set(1, 'Mohit');\nconsole.log(users.get(1));"
+      },
+      "interviewTip": "Compare Map with plain JavaScript objects."
+    },
+    {
+      "id": "js-072",
+      "title": "What are Set objects in JavaScript?",
+      "difficulty": "beginner",
+      "tags": [
+        "set",
+        "collections",
+        "es6"
+      ],
+      "shortAnswer": "A Set is a collection that stores unique values without duplicates.",
+      "detailedExplanation": "Set automatically removes duplicate values and maintains insertion order. It provides methods like add(), has(), delete(), clear(), and size.",
+      "realWorldExample": "Removing duplicate values from an array.",
+      "bestPractices": [
+        "Use Set for uniqueness checks.",
+        "Convert Sets to arrays when array methods are required."
+      ],
+      "commonMistakes": [
+        "Expecting duplicate values to be stored."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const nums = new Set([1, 2, 2, 3]);\nconsole.log([...nums]);"
+      },
+      "interviewTip": "Mention that Set stores only unique values."
+    },
+    {
+      "id": "js-073",
+      "title": "What are WeakMap and WeakSet?",
+      "difficulty": "advanced",
+      "tags": [
+        "weakmap",
+        "weakset",
+        "memory"
+      ],
+      "shortAnswer": "WeakMap and WeakSet store weak references to objects, allowing garbage collection when no other references exist.",
+      "detailedExplanation": "WeakMap accepts only object keys, while WeakSet accepts only objects as values. They are not iterable because their contents may disappear during garbage collection.",
+      "realWorldExample": "Associating metadata with DOM elements without causing memory leaks.",
+      "bestPractices": [
+        "Use WeakMap for private object metadata.",
+        "Avoid iterating since WeakMap and WeakSet are non-iterable."
+      ],
+      "commonMistakes": [
+        "Trying to use primitive values as WeakMap keys."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const wm = new WeakMap();\nconst obj = {};\nwm.set(obj, 'data');"
+      },
+      "interviewTip": "Explain why weak references help prevent memory leaks."
+    },
+    {
+      "id": "js-074",
+      "title": "What are iterators in JavaScript?",
+      "difficulty": "advanced",
+      "tags": [
+        "iterator",
+        "iteration",
+        "es6"
+      ],
+      "shortAnswer": "An iterator is an object that produces values one at a time using the next() method.",
+      "detailedExplanation": "Iterators follow the iterator protocol by implementing a next() method that returns an object containing value and done properties.",
+      "realWorldExample": "Iterating over arrays, Maps, Sets, and custom collections.",
+      "bestPractices": [
+        "Use built-in iterables when possible.",
+        "Implement custom iterators only when necessary."
+      ],
+      "commonMistakes": [
+        "Confusing iterators with iterable objects."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const arr = [1, 2];\nconst it = arr[Symbol.iterator]();\nconsole.log(it.next());"
+      },
+      "interviewTip": "Differentiate between iterable and iterator."
+    },
+    {
+      "id": "js-075",
+      "title": "What are generators?",
+      "difficulty": "advanced",
+      "tags": [
+        "generator",
+        "yield",
+        "functions"
+      ],
+      "shortAnswer": "Generators are special functions that pause and resume execution using the yield keyword.",
+      "detailedExplanation": "Generator functions return iterator objects. Each call to next() resumes execution until the next yield or completion.",
+      "realWorldExample": "Creating lazy sequences or paginated data processing.",
+      "bestPractices": [
+        "Use generators for lazy evaluation.",
+        "Keep generator logic simple."
+      ],
+      "commonMistakes": [
+        "Forgetting to call next() to resume execution."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "function* numbers(){\n  yield 1;\n  yield 2;\n}\nconst gen = numbers();\nconsole.log(gen.next().value);"
+      },
+      "interviewTip": "Explain how generators return iterators."
+    },
+    {
+      "id": "js-076",
+      "title": "What is the for...of loop?",
+      "difficulty": "beginner",
+      "tags": [
+        "loops",
+        "iterables",
+        "es6"
+      ],
+      "shortAnswer": "The for...of loop iterates over iterable values such as arrays, strings, Maps, and Sets.",
+      "detailedExplanation": "Unlike for...in, which iterates over property names, for...of iterates directly over values from iterable objects.",
+      "realWorldExample": "Looping through API response arrays.",
+      "bestPractices": [
+        "Use for...of for iterable collections.",
+        "Prefer it over index-based loops when indexes are unnecessary."
+      ],
+      "commonMistakes": [
+        "Using for...of on plain objects."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "for (const value of [1,2,3]) {\n  console.log(value);\n}"
+      },
+      "interviewTip": "Compare for...of with for...in."
+    },
+    {
+      "id": "js-077",
+      "title": "What is the for...in loop?",
+      "difficulty": "beginner",
+      "tags": [
+        "loops",
+        "objects"
+      ],
+      "shortAnswer": "The for...in loop iterates over enumerable property keys of an object.",
+      "detailedExplanation": "It is primarily used with objects and returns property names rather than values. Inherited enumerable properties are also included unless filtered.",
+      "realWorldExample": "Iterating over configuration object properties.",
+      "bestPractices": [
+        "Use Object.hasOwn() or hasOwnProperty() when appropriate.",
+        "Avoid using for...in for arrays."
+      ],
+      "commonMistakes": [
+        "Using for...in to iterate arrays."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const user = { name: 'Mohit', age: 25 };\nfor (const key in user) {\n  console.log(key, user[key]);\n}"
+      },
+      "interviewTip": "Explain why for...of is preferred for arrays."
+    },
+    {
+      "id": "js-078",
+      "title": "What is Array.from()?",
+      "difficulty": "beginner",
+      "tags": [
+        "array",
+        "es6"
+      ],
+      "shortAnswer": "Array.from() creates a new array from iterable or array-like objects.",
+      "detailedExplanation": "It converts structures such as NodeLists, Sets, Maps, and strings into arrays. It can also apply a mapping function during creation.",
+      "realWorldExample": "Converting a NodeList returned by querySelectorAll() into an array.",
+      "bestPractices": [
+        "Use Array.from() when array methods are needed.",
+        "Use the mapping function to avoid extra loops."
+      ],
+      "commonMistakes": [
+        "Confusing Array.from() with the spread operator."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const chars = Array.from('JS');\nconsole.log(chars);"
+      },
+      "interviewTip": "Mention support for iterable and array-like objects."
+    },
+    {
+      "id": "js-079",
+      "title": "What is Array.of()?",
+      "difficulty": "beginner",
+      "tags": [
+        "array",
+        "es6"
+      ],
+      "shortAnswer": "Array.of() creates a new array from the arguments passed to it.",
+      "detailedExplanation": "Unlike the Array constructor, Array.of() always treats its arguments as array elements, avoiding special behavior for a single numeric argument.",
+      "realWorldExample": "Creating arrays with numeric values safely.",
+      "bestPractices": [
+        "Use Array.of() for predictable array creation."
+      ],
+      "commonMistakes": [
+        "Confusing Array.of(5) with Array(5)."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "console.log(Array.of(5));\nconsole.log(Array(5));"
+      },
+      "interviewTip": "Highlight the difference between Array() and Array.of()."
+    },
+    {
+      "id": "js-080",
+      "title": "What is Object.entries()?",
+      "difficulty": "beginner",
+      "tags": [
+        "object",
+        "entries",
+        "es8"
+      ],
+      "shortAnswer": "Object.entries() returns an array of an object's own enumerable key-value pairs.",
+      "detailedExplanation": "Each element in the returned array is a two-item array containing the property key and value, making it easy to iterate using for...of.",
+      "realWorldExample": "Displaying object properties in a table.",
+      "bestPractices": [
+        "Use Object.entries() when both keys and values are needed.",
+        "Combine with destructuring for readability."
+      ],
+      "commonMistakes": [
+        "Expecting inherited properties to be included."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const user = { name: 'Mohit', age: 25 };\nfor (const [key, value] of Object.entries(user)) {\n  console.log(key, value);\n}"
+      },
+      "interviewTip": "Compare Object.entries(), Object.keys(), and Object.values()."
+    },
+    {
+      "id": "js-081",
+      "title": "What is Object.keys()?",
+      "difficulty": "beginner",
+      "tags": [
+        "object",
+        "keys",
+        "es5"
+      ],
+      "shortAnswer": "Object.keys() returns an array containing an object's own enumerable property names.",
+      "detailedExplanation": "It returns only the object's own enumerable string keys and does not include inherited properties from the prototype chain.",
+      "realWorldExample": "Iterating through object properties to dynamically generate a settings form.",
+      "bestPractices": [
+        "Use Object.keys() when only property names are required.",
+        "Combine with for...of or array methods for iteration."
+      ],
+      "commonMistakes": [
+        "Expecting inherited properties to be included."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const user = { name: 'Mohit', age: 25 };\nconsole.log(Object.keys(user));"
+      },
+      "interviewTip": "Compare Object.keys(), Object.values(), and Object.entries()."
+    },
+    {
+      "id": "js-082",
+      "title": "What is Object.values()?",
+      "difficulty": "beginner",
+      "tags": [
+        "object",
+        "values",
+        "es8"
+      ],
+      "shortAnswer": "Object.values() returns an array of an object's own enumerable property values.",
+      "detailedExplanation": "It extracts only the values of an object's own enumerable properties while preserving property order.",
+      "realWorldExample": "Displaying all product prices stored in an object.",
+      "bestPractices": [
+        "Use when only values are needed.",
+        "Combine with array methods like map() or reduce()."
+      ],
+      "commonMistakes": [
+        "Expecting property names to be returned."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const user = { name: 'Mohit', age: 25 };\nconsole.log(Object.values(user));"
+      },
+      "interviewTip": "Explain the difference between Object.keys() and Object.values()."
+    },
+    {
+      "id": "js-083",
+      "title": "What is Object.hasOwn()?",
+      "difficulty": "intermediate",
+      "tags": [
+        "object",
+        "properties",
+        "es2022"
+      ],
+      "shortAnswer": "Object.hasOwn() checks whether an object has a specified own property without checking the prototype chain.",
+      "detailedExplanation": "It is a modern alternative to hasOwnProperty() and safely works even when an object overrides hasOwnProperty.",
+      "realWorldExample": "Validating API response fields before processing them.",
+      "bestPractices": [
+        "Prefer Object.hasOwn() in modern JavaScript.",
+        "Use it when iterating with for...in."
+      ],
+      "commonMistakes": [
+        "Confusing own properties with inherited properties."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const user = { name: 'Mohit' };\nconsole.log(Object.hasOwn(user, 'name'));"
+      },
+      "interviewTip": "Mention that Object.hasOwn() is safer than calling hasOwnProperty() directly."
+    },
+    {
+      "id": "js-084",
+      "title": "What is the delete operator?",
+      "difficulty": "beginner",
+      "tags": [
+        "delete",
+        "objects"
+      ],
+      "shortAnswer": "The delete operator removes a property from an object.",
+      "detailedExplanation": "Deleting a property removes it from the object. It does not free memory directly, as memory management is handled by JavaScript's garbage collector.",
+      "realWorldExample": "Removing optional configuration properties before sending data to an API.",
+      "bestPractices": [
+        "Use delete only when removing object properties.",
+        "Avoid using delete on arrays; use splice() instead."
+      ],
+      "commonMistakes": [
+        "Using delete to remove array elements."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const user = { name: 'Mohit', age: 25 };\ndelete user.age;\nconsole.log(user);"
+      },
+      "interviewTip": "Explain why delete leaves empty slots in arrays."
+    },
+    {
+      "id": "js-085",
+      "title": "What is localStorage?",
+      "difficulty": "beginner",
+      "tags": [
+        "localstorage",
+        "web-api",
+        "storage"
+      ],
+      "shortAnswer": "localStorage is a Web API that stores key-value data in the browser with no expiration time.",
+      "detailedExplanation": "Data stored in localStorage persists even after the browser is closed. Values are stored as strings and must often be converted using JSON.stringify() and JSON.parse().",
+      "realWorldExample": "Saving a user's theme preference across browser sessions.",
+      "bestPractices": [
+        "Store only small amounts of non-sensitive data.",
+        "Serialize objects using JSON.stringify()."
+      ],
+      "commonMistakes": [
+        "Storing sensitive information like passwords or tokens."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "localStorage.setItem('theme', 'dark');\nconsole.log(localStorage.getItem('theme'));"
+      },
+      "interviewTip": "Compare localStorage with sessionStorage."
+    },
+    {
+      "id": "js-086",
+      "title": "What is sessionStorage?",
+      "difficulty": "beginner",
+      "tags": [
+        "sessionstorage",
+        "web-api",
+        "storage"
+      ],
+      "shortAnswer": "sessionStorage stores key-value data for the duration of a browser tab session.",
+      "detailedExplanation": "Unlike localStorage, sessionStorage data is cleared when the browser tab or window is closed. Data is isolated to each browser tab.",
+      "realWorldExample": "Temporarily storing form data during a checkout process.",
+      "bestPractices": [
+        "Use sessionStorage for temporary session-specific data.",
+        "Avoid storing confidential information."
+      ],
+      "commonMistakes": [
+        "Expecting sessionStorage data to persist after closing the tab."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "sessionStorage.setItem('step', '2');\nconsole.log(sessionStorage.getItem('step'));"
+      },
+      "interviewTip": "Highlight the lifetime difference between localStorage and sessionStorage."
+    },
+    {
+      "id": "js-087",
+      "title": "What are cookies?",
+      "difficulty": "intermediate",
+      "tags": [
+        "cookies",
+        "web-api",
+        "http"
+      ],
+      "shortAnswer": "Cookies are small pieces of data stored by the browser and sent with HTTP requests to the server.",
+      "detailedExplanation": "Cookies are commonly used for session management, authentication, and user preferences. They can have expiration dates and security attributes such as HttpOnly, Secure, and SameSite.",
+      "realWorldExample": "Maintaining a logged-in user session across page requests.",
+      "bestPractices": [
+        "Use Secure and HttpOnly for authentication cookies.",
+        "Keep cookie size small."
+      ],
+      "commonMistakes": [
+        "Storing large amounts of data in cookies."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "document.cookie = 'theme=dark; max-age=3600';"
+      },
+      "interviewTip": "Compare cookies with localStorage and sessionStorage."
+    },
+    {
+      "id": "js-088",
+      "title": "What is IndexedDB?",
+      "difficulty": "advanced",
+      "tags": [
+        "indexeddb",
+        "database",
+        "web-api"
+      ],
+      "shortAnswer": "IndexedDB is a browser-based NoSQL database for storing large amounts of structured data.",
+      "detailedExplanation": "IndexedDB supports transactions, indexes, and asynchronous operations, making it suitable for offline applications and complex client-side storage.",
+      "realWorldExample": "Offline-first applications that cache thousands of records locally.",
+      "bestPractices": [
+        "Use IndexedDB for large structured datasets.",
+        "Wrap the API with helper libraries when appropriate."
+      ],
+      "commonMistakes": [
+        "Using localStorage for large datasets instead of IndexedDB."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const request = indexedDB.open('AppDB', 1);"
+      },
+      "interviewTip": "Explain why IndexedDB is asynchronous while localStorage is synchronous."
+    },
+    {
+      "id": "js-089",
+      "title": "What is debouncing?",
+      "difficulty": "advanced",
+      "tags": [
+        "debounce",
+        "performance"
+      ],
+      "shortAnswer": "Debouncing delays function execution until a specified period passes without additional calls.",
+      "detailedExplanation": "It prevents functions from running repeatedly during rapid events such as typing or window resizing, improving application performance.",
+      "realWorldExample": "Triggering an API search request only after the user stops typing.",
+      "bestPractices": [
+        "Use debouncing for search inputs and resize events.",
+        "Clear previous timers before scheduling a new one."
+      ],
+      "commonMistakes": [
+        "Confusing debouncing with throttling."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "function debounce(fn, delay){\n  let timer;\n  return (...args)=>{\n    clearTimeout(timer);\n    timer = setTimeout(()=>fn(...args), delay);\n  };\n}"
+      },
+      "interviewTip": "Explain the difference between debouncing and throttling."
+    },
+    {
+      "id": "js-090",
+      "title": "What is throttling?",
+      "difficulty": "advanced",
+      "tags": [
+        "throttle",
+        "performance"
+      ],
+      "shortAnswer": "Throttling limits how often a function can execute within a specified time interval.",
+      "detailedExplanation": "Unlike debouncing, throttling ensures a function executes at regular intervals during continuous events such as scrolling or mouse movement.",
+      "realWorldExample": "Updating scroll position while preventing excessive event handler execution.",
+      "bestPractices": [
+        "Use throttling for scroll, resize, and mousemove events.",
+        "Choose an interval that balances responsiveness and performance."
+      ],
+      "commonMistakes": [
+        "Using throttling where debouncing is more appropriate."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "function throttle(fn, delay){\n  let waiting = false;\n  return (...args)=>{\n    if(waiting) return;\n    waiting = true;\n    fn(...args);\n    setTimeout(()=>waiting = false, delay);\n  };\n}"
+      },
+      "interviewTip": "Use search input vs scroll events to explain debounce and throttle."
+    },
+    {
+      "id": "js-091",
+      "title": "What is currying in JavaScript?",
+      "difficulty": "advanced",
+      "tags": [
+        "currying",
+        "functions",
+        "functional-programming"
+      ],
+      "shortAnswer": "Currying transforms a function with multiple parameters into a sequence of functions that each take one parameter.",
+      "detailedExplanation": "Instead of accepting all arguments at once, a curried function returns another function until all required arguments are supplied. Currying improves function reuse and partial application.",
+      "realWorldExample": "Creating reusable discount or tax calculation functions with predefined values.",
+      "bestPractices": [
+        "Use currying when partial application improves code reuse.",
+        "Keep curried functions simple and readable."
+      ],
+      "commonMistakes": [
+        "Confusing currying with partial application."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const multiply = a => b => a * b;\nconst double = multiply(2);\nconsole.log(double(5));"
+      },
+      "interviewTip": "Explain that each function accepts one argument and returns another function until evaluation completes."
+    },
+    {
+      "id": "js-092",
+      "title": "What is partial application?",
+      "difficulty": "advanced",
+      "tags": [
+        "partial-application",
+        "functions"
+      ],
+      "shortAnswer": "Partial application creates a new function by pre-filling some of the original function's arguments.",
+      "detailedExplanation": "Unlike currying, partial application fixes one or more arguments while allowing the remaining arguments to be supplied later.",
+      "realWorldExample": "Creating specialized logging functions with predefined log levels.",
+      "bestPractices": [
+        "Use partial application to reduce duplicate code.",
+        "Avoid excessive nesting."
+      ],
+      "commonMistakes": [
+        "Assuming partial application always requires currying."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "function greet(greeting, name){\n  return `${greeting}, ${name}`;\n}\nconst sayHello = greet.bind(null, 'Hello');\nconsole.log(sayHello('Mohit'));"
+      },
+      "interviewTip": "Differentiate partial application from currying with examples."
+    },
+    {
+      "id": "js-093",
+      "title": "What is memoization?",
+      "difficulty": "advanced",
+      "tags": [
+        "memoization",
+        "performance",
+        "cache"
+      ],
+      "shortAnswer": "Memoization caches function results so repeated calls with the same arguments return cached values instead of recomputing.",
+      "detailedExplanation": "It improves performance for expensive deterministic functions by storing previously calculated results.",
+      "realWorldExample": "Caching expensive calculations or API-independent computations.",
+      "bestPractices": [
+        "Use memoization only for pure functions.",
+        "Limit cache size if memory usage is a concern."
+      ],
+      "commonMistakes": [
+        "Memoizing functions with side effects."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const cache = {};\nfunction square(n){\n  if(cache[n]) return cache[n];\n  cache[n] = n * n;\n  return cache[n];\n}"
+      },
+      "interviewTip": "Mention the trade-off between performance and memory."
+    },
+    {
+      "id": "js-094",
+      "title": "What is tail recursion?",
+      "difficulty": "advanced",
+      "tags": [
+        "recursion",
+        "optimization"
+      ],
+      "shortAnswer": "Tail recursion occurs when the recursive call is the final operation performed by a function.",
+      "detailedExplanation": "Some languages optimize tail-recursive functions to avoid growing the call stack. JavaScript engines generally do not guarantee tail call optimization.",
+      "realWorldExample": "Recursive accumulation of totals using an accumulator parameter.",
+      "bestPractices": [
+        "Prefer iteration if recursion depth may become large.",
+        "Understand engine support before relying on optimization."
+      ],
+      "commonMistakes": [
+        "Assuming all JavaScript engines optimize tail recursion."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "function sum(n, total = 0){\n  if(n === 0) return total;\n  return sum(n - 1, total + n);\n}"
+      },
+      "interviewTip": "Mention that proper tail call optimization is not widely implemented."
+    },
+    {
+      "id": "js-095",
+      "title": "What is event delegation?",
+      "difficulty": "advanced",
+      "tags": [
+        "dom",
+        "events",
+        "performance"
+      ],
+      "shortAnswer": "Event delegation attaches a single event listener to a parent element to handle events from its child elements.",
+      "detailedExplanation": "It relies on event bubbling to reduce the number of event listeners, improving memory usage and supporting dynamically added elements.",
+      "realWorldExample": "Handling clicks for all rows in a dynamically generated table using one listener.",
+      "bestPractices": [
+        "Delegate events from a stable parent element.",
+        "Check event.target before handling the event."
+      ],
+      "commonMistakes": [
+        "Ignoring event bubbling behavior."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "document.getElementById('list').addEventListener('click', e => {\n  if(e.target.matches('li')){\n    console.log(e.target.textContent);\n  }\n});"
+      },
+      "interviewTip": "Explain how event bubbling makes delegation possible."
+    },
+    {
+      "id": "js-096",
+      "title": "What is lazy loading in JavaScript?",
+      "difficulty": "intermediate",
+      "tags": [
+        "lazy-loading",
+        "performance"
+      ],
+      "shortAnswer": "Lazy loading delays loading resources until they are actually needed.",
+      "detailedExplanation": "It reduces initial page load time by loading modules, images, or components only when users interact with them or they become visible.",
+      "realWorldExample": "Loading images only when they enter the viewport.",
+      "bestPractices": [
+        "Lazy load non-critical resources.",
+        "Avoid delaying critical application functionality."
+      ],
+      "commonMistakes": [
+        "Lazy loading above-the-fold content."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const module = await import('./utils.js');"
+      },
+      "interviewTip": "Mention dynamic import() for code splitting."
+    },
+    {
+      "id": "js-097",
+      "title": "What is tree shaking?",
+      "difficulty": "advanced",
+      "tags": [
+        "bundling",
+        "optimization",
+        "modules"
+      ],
+      "shortAnswer": "Tree shaking removes unused code from JavaScript bundles during the build process.",
+      "detailedExplanation": "Modern bundlers analyze ES module imports and exports to eliminate code that is never used, reducing bundle size.",
+      "realWorldExample": "Importing only required utility functions instead of an entire library.",
+      "bestPractices": [
+        "Use ES modules.",
+        "Import only what is needed."
+      ],
+      "commonMistakes": [
+        "Using patterns that prevent static analysis."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "import { formatDate } from './utils.js';"
+      },
+      "interviewTip": "Explain why tree shaking works best with ES Modules."
+    },
+    {
+      "id": "js-098",
+      "title": "What is code splitting?",
+      "difficulty": "intermediate",
+      "tags": [
+        "code-splitting",
+        "performance"
+      ],
+      "shortAnswer": "Code splitting divides an application into smaller bundles that load on demand.",
+      "detailedExplanation": "Instead of downloading the entire application upfront, only the required code is loaded initially, improving startup performance.",
+      "realWorldExample": "Loading an admin dashboard bundle only when an administrator visits that route.",
+      "bestPractices": [
+        "Split code by routes or features.",
+        "Combine with lazy loading."
+      ],
+      "commonMistakes": [
+        "Creating too many tiny bundles."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "import('./dashboard.js').then(module => module.init());"
+      },
+      "interviewTip": "Discuss code splitting alongside lazy loading."
+    },
+    {
+      "id": "js-099",
+      "title": "What are source maps?",
+      "difficulty": "intermediate",
+      "tags": [
+        "debugging",
+        "build-tools"
+      ],
+      "shortAnswer": "Source maps map transformed JavaScript code back to the original source files for debugging.",
+      "detailedExplanation": "They allow developers to debug minified or transpiled code in browser developer tools while viewing the original source.",
+      "realWorldExample": "Debugging TypeScript or Babel-generated JavaScript in production builds.",
+      "bestPractices": [
+        "Generate source maps for development.",
+        "Control production source map exposure."
+      ],
+      "commonMistakes": [
+        "Publishing sensitive source maps unintentionally."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "// Source maps are generated by bundlers such as Webpack or Vite."
+      },
+      "interviewTip": "Explain how source maps improve debugging without affecting runtime behavior."
+    },
+    {
+      "id": "js-100",
+      "title": "What are Web Workers?",
+      "difficulty": "advanced",
+      "tags": [
+        "web-workers",
+        "performance",
+        "browser"
+      ],
+      "shortAnswer": "Web Workers allow JavaScript to run background tasks in separate threads without blocking the main UI thread.",
+      "detailedExplanation": "Workers execute scripts independently from the main thread and communicate using message passing. They are useful for CPU-intensive tasks that would otherwise freeze the user interface.",
+      "realWorldExample": "Processing large datasets or image manipulation while keeping the application responsive.",
+      "bestPractices": [
+        "Use workers for CPU-intensive operations.",
+        "Communicate using postMessage().",
+        "Terminate workers when no longer needed."
+      ],
+      "commonMistakes": [
+        "Trying to access the DOM directly from a Web Worker."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "// main.js\nconst worker = new Worker('worker.js');\nworker.postMessage('start');\nworker.onmessage = e => console.log(e.data);"
+      },
+      "interviewTip": "Clearly distinguish asynchronous programming from multithreading using Web Workers."
+    },
+    {
+      "id": "js-101",
+      "title": "What is the Fetch API?",
+      "difficulty": "beginner",
+      "tags": [
+        "fetch",
+        "http",
+        "web-api"
+      ],
+      "shortAnswer": "The Fetch API is a modern interface for making asynchronous HTTP requests that returns Promises.",
+      "detailedExplanation": "Fetch provides a cleaner and more flexible alternative to XMLHttpRequest. It supports Promises, async/await, request configuration, and response parsing using methods like json(), text(), and blob().",
+      "realWorldExample": "Fetching a list of users from a REST API to display in a dashboard.",
+      "bestPractices": [
+        "Use async/await for better readability.",
+        "Always handle network and HTTP errors."
+      ],
+      "commonMistakes": [
+        "Assuming fetch rejects on HTTP 404 or 500 responses."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const response = await fetch('/api/users');\nconst users = await response.json();"
+      },
+      "interviewTip": "Mention that fetch only rejects on network failures, not HTTP error status codes."
+    },
+    {
+      "id": "js-102",
+      "title": "How do you handle errors with Fetch?",
+      "difficulty": "intermediate",
+      "tags": [
+        "fetch",
+        "error-handling"
+      ],
+      "shortAnswer": "Check response.ok and use try...catch for network errors.",
+      "detailedExplanation": "Fetch resolves successfully even when the server returns 404 or 500. Developers should check response.ok or response.status before processing the response body.",
+      "realWorldExample": "Displaying an error message when an API returns 'Unauthorized'.",
+      "bestPractices": [
+        "Validate response.ok.",
+        "Wrap asynchronous code in try...catch."
+      ],
+      "commonMistakes": [
+        "Expecting fetch to throw for every unsuccessful HTTP status."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "try {\n  const res = await fetch('/api/data');\n  if (!res.ok) throw new Error('Request failed');\n  const data = await res.json();\n} catch (err) {\n  console.error(err.message);\n}"
+      },
+      "interviewTip": "Explain the difference between network errors and HTTP errors."
+    },
+    {
+      "id": "js-103",
+      "title": "What is AbortController?",
+      "difficulty": "intermediate",
+      "tags": [
+        "fetch",
+        "abortcontroller",
+        "web-api"
+      ],
+      "shortAnswer": "AbortController allows cancellation of asynchronous operations such as fetch requests.",
+      "detailedExplanation": "An AbortController creates a signal that can be passed to APIs supporting cancellation. Calling abort() stops the associated operation.",
+      "realWorldExample": "Canceling previous search requests while a user continues typing.",
+      "bestPractices": [
+        "Abort unnecessary requests.",
+        "Clean up pending requests in UI frameworks."
+      ],
+      "commonMistakes": [
+        "Ignoring AbortError when cancellation occurs."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const controller = new AbortController();\nfetch('/api/users', { signal: controller.signal });\ncontroller.abort();"
+      },
+      "interviewTip": "Mention its importance in preventing race conditions."
+    },
+    {
+      "id": "js-104",
+      "title": "What is CORS?",
+      "difficulty": "intermediate",
+      "tags": [
+        "cors",
+        "http",
+        "security"
+      ],
+      "shortAnswer": "Cross-Origin Resource Sharing (CORS) is a browser security mechanism that controls cross-origin HTTP requests.",
+      "detailedExplanation": "Browsers restrict requests between different origins unless the server explicitly allows them using CORS headers such as Access-Control-Allow-Origin.",
+      "realWorldExample": "Calling a backend API hosted on a different domain from a frontend application.",
+      "bestPractices": [
+        "Configure CORS on the server.",
+        "Allow only trusted origins."
+      ],
+      "commonMistakes": [
+        "Trying to solve CORS problems only on the frontend."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "// CORS is configured by the server, not JavaScript."
+      },
+      "interviewTip": "Explain what constitutes an origin: protocol, domain, and port."
+    },
+    {
+      "id": "js-105",
+      "title": "What is JSON?",
+      "difficulty": "beginner",
+      "tags": [
+        "json",
+        "data"
+      ],
+      "shortAnswer": "JSON (JavaScript Object Notation) is a lightweight text format used for data exchange.",
+      "detailedExplanation": "JSON represents structured data using objects and arrays. It is language-independent and widely used for APIs.",
+      "realWorldExample": "Receiving user data from a REST API.",
+      "bestPractices": [
+        "Use JSON.stringify() before storing objects.",
+        "Use JSON.parse() to convert JSON strings into JavaScript objects."
+      ],
+      "commonMistakes": [
+        "Confusing JavaScript objects with JSON strings."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const json = '{\"name\":\"Mohit\"}';\nconst user = JSON.parse(json);"
+      },
+      "interviewTip": "Remember that JSON keys and string values require double quotes."
+    },
+    {
+      "id": "js-106",
+      "title": "What is JSON.stringify()?",
+      "difficulty": "beginner",
+      "tags": [
+        "json",
+        "serialization"
+      ],
+      "shortAnswer": "JSON.stringify() converts a JavaScript value into a JSON string.",
+      "detailedExplanation": "It serializes objects, arrays, numbers, strings, and booleans into JSON format, making them suitable for storage or transmission.",
+      "realWorldExample": "Saving user preferences in localStorage.",
+      "bestPractices": [
+        "Serialize objects before sending them over HTTP.",
+        "Handle circular references carefully."
+      ],
+      "commonMistakes": [
+        "Attempting to stringify objects containing circular references."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const user = { name: 'Mohit' };\nconst json = JSON.stringify(user);"
+      },
+      "interviewTip": "Mention replacer and spacing arguments for formatting."
+    },
+    {
+      "id": "js-107",
+      "title": "What is JSON.parse()?",
+      "difficulty": "beginner",
+      "tags": [
+        "json",
+        "parsing"
+      ],
+      "shortAnswer": "JSON.parse() converts a JSON string into a JavaScript object.",
+      "detailedExplanation": "It parses valid JSON strings and throws an error for invalid JSON.",
+      "realWorldExample": "Reading serialized application settings from localStorage.",
+      "bestPractices": [
+        "Wrap parsing in try...catch when input is uncertain."
+      ],
+      "commonMistakes": [
+        "Passing JavaScript object literals instead of JSON strings."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const settings = JSON.parse('{\"theme\":\"dark\"}');"
+      },
+      "interviewTip": "Explain why invalid JSON throws a SyntaxError."
+    },
+    {
+      "id": "js-108",
+      "title": "What is optional chaining (?.)?",
+      "difficulty": "beginner",
+      "tags": [
+        "optional-chaining",
+        "es2020"
+      ],
+      "shortAnswer": "Optional chaining safely accesses nested properties without throwing errors if an intermediate value is null or undefined.",
+      "detailedExplanation": "If a property in the chain is null or undefined, evaluation stops and undefined is returned instead of causing a TypeError.",
+      "realWorldExample": "Reading optional API response fields without multiple null checks.",
+      "bestPractices": [
+        "Use optional chaining for nullable values.",
+        "Avoid overusing it when data should always exist."
+      ],
+      "commonMistakes": [
+        "Expecting optional chaining to handle every falsy value."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "console.log(user?.address?.city);"
+      },
+      "interviewTip": "Explain the difference between null/undefined and other falsy values."
+    },
+    {
+      "id": "js-109",
+      "title": "What is nullish coalescing (??)?",
+      "difficulty": "beginner",
+      "tags": [
+        "nullish-coalescing",
+        "es2020"
+      ],
+      "shortAnswer": "The nullish coalescing operator returns the right-hand value only when the left-hand value is null or undefined.",
+      "detailedExplanation": "Unlike ||, the ?? operator preserves valid falsy values such as 0, false, and an empty string.",
+      "realWorldExample": "Providing default values while preserving legitimate zero or false values.",
+      "bestPractices": [
+        "Use ?? instead of || when only null and undefined should trigger defaults."
+      ],
+      "commonMistakes": [
+        "Using || when 0 or false are valid values."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "const count = 0;\nconsole.log(count ?? 10);"
+      },
+      "interviewTip": "Compare ?? with || using examples involving 0 and empty strings."
+    },
+    {
+      "id": "js-110",
+      "title": "What is the difference between == and ===?",
+      "difficulty": "beginner",
+      "tags": [
+        "comparison",
+        "operators"
+      ],
+      "shortAnswer": "== performs type coercion before comparison, while === compares both value and type without coercion.",
+      "detailedExplanation": "Strict equality (===) is generally preferred because it avoids unexpected results caused by automatic type conversion.",
+      "realWorldExample": "Validating user input where exact type comparison is required.",
+      "bestPractices": [
+        "Prefer === and !== in modern JavaScript.",
+        "Avoid relying on implicit type coercion."
+      ],
+      "commonMistakes": [
+        "Using == without understanding coercion rules."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "console.log(5 == '5');  // true\nconsole.log(5 === '5'); // false"
+      },
+      "interviewTip": "Be prepared to explain JavaScript's type coercion behavior."
+    },
+    {
+      "id": "real-js-111",
+      "title": "Implement a custom map() function.",
+      "difficulty": "intermediate",
+      "tags": [
+        "polyfill",
+        "array",
+        "map"
+      ],
+      "shortAnswer": "Create your own implementation of Array.prototype.map without using the built-in map().",
+      "detailedExplanation": "The interviewer checks whether you understand array iteration, callbacks, return values, and prototype methods.",
+      "realWorldExample": "Transforming API response objects into UI-friendly data.",
+      "bestPractices": [
+        "Do not modify the original array.",
+        "Call the callback with value, index, and array."
+      ],
+      "commonMistakes": [
+        "Mutating the original array.",
+        "Ignoring callback parameters."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "Array.prototype.myMap = function(callback){\n  const result = [];\n  for(let i=0;i<this.length;i++){\n    result.push(callback(this[i], i, this));\n  }\n  return result;\n};"
+      },
+      "interviewTip": "Interviewers often ask follow-up questions about sparse arrays and the value of this."
+    },
+    {
+      "id": "real-js-112",
+      "title": "Implement a custom filter() function.",
+      "difficulty": "intermediate",
+      "tags": [
+        "polyfill",
+        "array",
+        "filter"
+      ],
+      "shortAnswer": "Write your own version of Array.prototype.filter.",
+      "detailedExplanation": "This evaluates your understanding of conditional iteration and returning a new array.",
+      "realWorldExample": "Filtering active users before displaying them.",
+      "bestPractices": [
+        "Return a new array.",
+        "Do not mutate the original array."
+      ],
+      "commonMistakes": [
+        "Returning true/false instead of the filtered array."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "Array.prototype.myFilter = function(cb){\n  const result=[];\n  for(let i=0;i<this.length;i++){\n    if(cb(this[i],i,this)) result.push(this[i]);\n  }\n  return result;\n};"
+      },
+      "interviewTip": "Expect comparisons between filter() and map()."
+    },
+    {
+      "id": "real-js-113",
+      "title": "Implement debounce().",
+      "difficulty": "advanced",
+      "tags": [
+        "debounce",
+        "performance"
+      ],
+      "shortAnswer": "Create a debounce utility without using Lodash.",
+      "detailedExplanation": "A frequent frontend interview question that tests closures, timers, and event optimization.",
+      "realWorldExample": "Search autocomplete that waits until the user stops typing.",
+      "bestPractices": [
+        "Clear the previous timer before creating a new one."
+      ],
+      "commonMistakes": [
+        "Forgetting to preserve arguments or the this context."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "function debounce(fn, delay){\n let timer;\n return function(...args){\n   clearTimeout(timer);\n   timer=setTimeout(()=>fn.apply(this,args),delay);\n }\n}"
+      },
+      "interviewTip": "Many interviewers ask you to compare debounce and throttle."
+    },
+    {
+      "id": "real-js-114",
+      "title": "Implement throttle().",
+      "difficulty": "advanced",
+      "tags": [
+        "throttle",
+        "performance"
+      ],
+      "shortAnswer": "Write a throttle function that limits execution frequency.",
+      "detailedExplanation": "Tests timers, closures, and performance optimization.",
+      "realWorldExample": "Handling scroll and resize events efficiently.",
+      "bestPractices": [
+        "Avoid multiple executions within the delay period."
+      ],
+      "commonMistakes": [
+        "Confusing throttle with debounce."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "function throttle(fn, delay){\n let waiting=false;\n return function(...args){\n   if(waiting) return;\n   waiting=true;\n   fn.apply(this,args);\n   setTimeout(()=>waiting=false,delay);\n }\n}"
+      },
+      "interviewTip": "Explain suitable use cases for throttle versus debounce."
+    },
+    {
+      "id": "real-js-115",
+      "title": "Flatten a nested array without using flat().",
+      "difficulty": "intermediate",
+      "tags": [
+        "recursion",
+        "array"
+      ],
+      "shortAnswer": "Convert a deeply nested array into a single-level array.",
+      "detailedExplanation": "Interviewers assess recursion and array manipulation skills.",
+      "realWorldExample": "Flattening nested category structures before rendering them.",
+      "bestPractices": [
+        "Support arbitrary nesting depth."
+      ],
+      "commonMistakes": [
+        "Handling only one nesting level."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "function flatten(arr){\n return arr.reduce((acc,val)=>acc.concat(Array.isArray(val)?flatten(val):val),[]);\n}"
+      },
+      "interviewTip": "A follow-up may ask for an iterative solution."
+    },
+    {
+      "id": "real-js-116",
+      "title": "Deep clone an object without using structuredClone().",
+      "difficulty": "advanced",
+      "tags": [
+        "object",
+        "clone",
+        "recursion"
+      ],
+      "shortAnswer": "Implement a recursive deep copy function.",
+      "detailedExplanation": "Tests understanding of references, recursion, and nested structures.",
+      "realWorldExample": "Copying application state before applying changes.",
+      "bestPractices": [
+        "Handle nested objects and arrays."
+      ],
+      "commonMistakes": [
+        "Creating only a shallow copy."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "function deepClone(obj){\n if(obj===null||typeof obj!=='object') return obj;\n const clone=Array.isArray(obj)?[]:{};\n for(const key in obj){\n   clone[key]=deepClone(obj[key]);\n }\n return clone;\n}"
+      },
+      "interviewTip": "Expect discussion about circular references and Dates."
+    },
+    {
+      "id": "real-js-117",
+      "title": "Explain the JavaScript event loop using an example.",
+      "difficulty": "advanced",
+      "tags": [
+        "event-loop",
+        "async"
+      ],
+      "shortAnswer": "Describe the execution order of synchronous code, microtasks, and macrotasks.",
+      "detailedExplanation": "This is one of the most frequently asked JavaScript interview questions.",
+      "realWorldExample": "Predicting the console output of mixed async code.",
+      "bestPractices": [
+        "Explain call stack, Web APIs, task queue, and microtask queue."
+      ],
+      "commonMistakes": [
+        "Confusing Promise callbacks with setTimeout callbacks."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "console.log('A');\nsetTimeout(()=>console.log('B'));\nPromise.resolve().then(()=>console.log('C'));\nconsole.log('D');"
+      },
+      "interviewTip": "Always explain why the output is A, D, C, B."
+    },
+    {
+      "id": "real-js-118",
+      "title": "Implement Promise.all().",
+      "difficulty": "advanced",
+      "tags": [
+        "promise",
+        "polyfill"
+      ],
+      "shortAnswer": "Write a custom implementation of Promise.all().",
+      "detailedExplanation": "Tests asynchronous programming, Promise states, and result ordering.",
+      "realWorldExample": "Loading multiple APIs in parallel before rendering a dashboard.",
+      "bestPractices": [
+        "Preserve input order.",
+        "Reject immediately if any promise rejects."
+      ],
+      "commonMistakes": [
+        "Returning results in completion order instead of input order."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "// Interview implementation usually expected."
+      },
+      "interviewTip": "Senior interviews often include this question."
+    },
+    {
+      "id": "real-js-119",
+      "title": "Implement a custom bind().",
+      "difficulty": "advanced",
+      "tags": [
+        "bind",
+        "this",
+        "polyfill"
+      ],
+      "shortAnswer": "Create your own version of Function.prototype.bind.",
+      "detailedExplanation": "Evaluates understanding of this, closures, and prototypes.",
+      "realWorldExample": "Binding event handlers to class instances.",
+      "bestPractices": [
+        "Support preset arguments."
+      ],
+      "commonMistakes": [
+        "Losing the correct this context."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "// Frequently asked coding round problem."
+      },
+      "interviewTip": "Be prepared to compare bind(), call(), and apply()."
+    },
+    {
+      "id": "real-js-120",
+      "title": "Predict the output of this JavaScript snippet.",
+      "difficulty": "advanced",
+      "tags": [
+        "output",
+        "closures",
+        "hoisting",
+        "event-loop"
+      ],
+      "shortAnswer": "Explain the output and why it occurs.",
+      "detailedExplanation": "Output-based questions are among the most common JavaScript interview exercises.",
+      "realWorldExample": "Understanding runtime behavior before debugging production code.",
+      "bestPractices": [
+        "Explain each execution step instead of guessing."
+      ],
+      "commonMistakes": [
+        "Ignoring scope or asynchronous execution."
+      ],
+      "codeSnippet": {
+        "language": "js",
+        "code": "for(var i=0;i<3;i++){\n setTimeout(()=>console.log(i),0);\n}"
+      },
+      "interviewTip": "Expect follow-up questions asking how let changes the output."
+    }
+  ]
+}
