@@ -18,7 +18,7 @@ export const useUIStore = create<UIState>((set) => ({
   activeCategory: "react",
   searchQuery: "",
   isSearchOpen: false,
-  themeMode: "dark",
+  themeMode: "light",
   setActiveCategory: (slug) => set({ activeCategory: slug }),
   setSearchQuery: (q) => set({ searchQuery: q }),
   toggleSearch: (open) =>
